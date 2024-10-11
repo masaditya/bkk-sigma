@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-versions: ["8.1"]
     name: Build and Push
     steps:
       - name: git-checkout
@@ -15,6 +18,14 @@ jobs:
 
       - name: Install all dependencies
         run: npm install
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Build
         run: npm run build # The build command of your project
