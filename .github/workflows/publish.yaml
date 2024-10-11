@@ -16,12 +16,6 @@ jobs:
       - name: Install all dependencies
         run: npm install
 
-      - name: Update Composer
-        run: composer update
-
-      - name: Install composer
-        run: composer install
-
       - name: Build
         run: npm run build # The build command of your project
 
