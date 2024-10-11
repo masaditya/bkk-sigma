@@ -2,7 +2,7 @@ import { User } from "@/types";
 import { Link } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 
-const Header = (props: { user?: User }) => {
+const Header = (props: { user?: User; page?: string }) => {
     const [stickyMenu, setStickyMenu] = useState(false);
     const [navigationOpen, setNavigationOpen] = useState(false);
     useEffect(() => {
@@ -16,21 +16,14 @@ const Header = (props: { user?: User }) => {
     }, []);
 
     return (
-        <header
-            className={`${stickyMenu && "hh sm _k dj bl ll"} g s r vd ya cj`}
-        >
+        <header className={` hh sm _k dj bl ll g s r vd ya cj`}>
             <div className="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
                 <div className="vd to/4 tc wf yf">
                     <Link href="/">
                         <img
-                            className="om"
-                            src="/images/logo-light.svg"
+                            className="om h-10"
+                            src="/images/bkk-sigma.png"
                             alt="Logo Light"
-                        />
-                        <img
-                            className="xc nm"
-                            src="/images/logo-dark.svg"
-                            alt="Logo Dark"
                         />
                     </Link>
 
@@ -97,18 +90,23 @@ const Header = (props: { user?: User }) => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="index.html#features" className="xl">
+                                <Link href="/tracer-study" className="xl">
+                                    Tracer Study
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/about" className="xl">
+                                    Tentang BKK
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/article" className="xl">
+                                    Berita
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/alumni" className="xl">
                                     Alumni
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="index.html#features" className="xl">
-                                    Industri
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="index.html#features" className="xl">
-                                    Info BKK
                                 </Link>
                             </li>
                         </ul>
@@ -126,8 +124,10 @@ const Header = (props: { user?: User }) => {
                                 <Link
                                     href="/login"
                                     className={`${
-                                        stickyMenu && "ok"
-                                    } ek pk xl rg dk xf _l gi hi hh/[0.15] ${
+                                        stickyMenu && ""
+                                    } ek pk xl rg dk xf _l gi hi ok ${
+                                        props.page === "home" && "hh/[0.15]"
+                                    } ${
                                         !navigationOpen &&
                                         "nk hover:!text-gray-700  yl"
                                     }`}
@@ -136,10 +136,12 @@ const Header = (props: { user?: User }) => {
                                 </Link>
                                 <Link
                                     href="/register"
-                                    className={`${stickyMenu && "sh"} ${
+                                    className={`${stickyMenu && ""} ${
                                         !navigationOpen &&
                                         "lk hover:!text-gray-700"
-                                    } gh dk rg tc wf xf _l gi hi hh/[0.15]`}
+                                    } gh dk rg tc wf xf _l gi hi sh ${
+                                        props.page === "home" && "hh/[0.15]"
+                                    }`}
                                 >
                                     Daftar
                                 </Link>
@@ -149,7 +151,9 @@ const Header = (props: { user?: User }) => {
                                 href="/dashboard"
                                 className={`${stickyMenu && "sh"} ${
                                     !navigationOpen && "lk hover:!text-gray-700"
-                                } gh dk rg tc wf xf _l gi hi hh/[0.15]`}
+                                } gh dk rg tc wf xf _l gi hi ${
+                                    props.page === "home" && "hh/[0.15]"
+                                }`}
                             >
                                 Dashboard
                             </Link>
