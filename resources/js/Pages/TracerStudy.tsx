@@ -33,21 +33,21 @@ export default function Alumni(props: PageProps) {
                     </div>
 
                     <div className="w-full grid grid-cols-3 mx-auto container gap-8 rp mt-8">
-                        <div className="col-span-2 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
+                        <div className="col-span-3 lg:col-span-2 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
                             <GraduateChart />
                             <p className="text-sm text-gray-500 text-center mt-4">
                                 Untuk menunjukkan pertumbuhan atau fluktuasi
                                 lulusan tiap tahun.
                             </p>
                         </div>
-                        <div className="col-span-1 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
+                        <div className="col-span-3 lg:col-span-1 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
                             <JobSectorChart />
                             <p className="text-sm text-gray-500 text-center mt-4">
                                 Untuk menunjukkan diversifikasi bidang pekerjaan
                                 lulusan.
                             </p>
                         </div>
-                        <div className="col-span-1 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
+                        <div className="col-span-3 lg:col-span-1 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
                             <EmploymentStatusChart />
                             <p className="text-sm text-gray-500 text-center mt-4">
                                 Untuk memberikan gambaran cepat mengenai tingkat
@@ -55,7 +55,7 @@ export default function Alumni(props: PageProps) {
                             </p>
                         </div>
 
-                        <div className="col-span-2 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
+                        <div className="col-span-3 lg:col-span-2 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
                             <PartnerCompaniesChart />
                             <p className="text-sm text-gray-500 text-center mt-4">
                                 Data statistik yang menunjukkan berapa banyak

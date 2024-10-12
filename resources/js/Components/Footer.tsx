@@ -10,24 +10,33 @@ export const Footer = () => {
                     <div className="animate_top">
                         <ul className="tc wf gg">
                             <li>
-                                <Link href="/" className="xl">
+                                <Link
+                                    href="/"
+                                    className="xl text-xs lg:text-base"
+                                >
                                     Kemitraan Industri
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/" className="xl">
+                                <Link
+                                    href="/"
+                                    className="xl text-xs lg:text-base"
+                                >
                                     Artikel dan Berita
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/" className="xl">
+                                <Link
+                                    href="/"
+                                    className="xl text-xs lg:text-base"
+                                >
                                     Kontak
                                 </Link>
                             </li>
                         </ul>
                     </div>
                     <div className="animate_top">
-                        <p>
+                        <p className="text-xs lg:text-base">
                             © 2024 BKK SMKN 1 Bojonegoro, Semua hak dilindungi.
                         </p>
                     </div>

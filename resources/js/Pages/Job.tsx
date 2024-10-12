@@ -16,7 +16,7 @@ export default function Job(props: PageProps) {
             <main>
                 <section className="gj qp gr ki">
                     <div className="flex flex-col items-center justify-center">
-                        <h1 className="text-4xl font-bold mb-4">
+                        <h1 className="text-4xl font-bold mb-4 text-center">
                             Temukan Karier Impianmu
                         </h1>
                         <p className="text-gray-500 mb-8 max-w-2xl text-center">
@@ -88,16 +88,17 @@ export default function Job(props: PageProps) {
                                         <p className="text-gray-500">
                                             Jakarta, Indonesia
                                         </p>
-                                        <div className="flex gap-2 mt-4">
-                                            <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1   ">
-                                                <FileSyncOutlined />
-                                                Full-time
-                                            </span>
-                                            <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1">
-                                                <BankOutlined />
-                                                Manufaktur
-                                            </span>
-                                        </div>
+                                    </div>
+                                    <div className="col-span-1 hidden lg:block"></div>
+                                    <div className="flex gap-2 col-span-4 lg:col-span-3">
+                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center   ">
+                                            <FileSyncOutlined />
+                                            Full-time
+                                        </span>
+                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center">
+                                            <BankOutlined />
+                                            Manufaktur
+                                        </span>
                                     </div>
                                 </div>
 

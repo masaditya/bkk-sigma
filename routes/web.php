@@ -55,4 +55,8 @@ Route::get('/article', function () {
     return Inertia::render('Article');
 });
 
+Route::get('/article/{id}', function () {
+    return Inertia::render('ArticleDetail');
+});
+
 require __DIR__ . '/auth.php';

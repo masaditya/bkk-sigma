@@ -16,7 +16,7 @@ export default function Alumni(props: PageProps) {
             <main>
                 <section className="gj qp gr ki">
                     <div className="flex flex-col items-center justify-center">
-                        <h1 className="text-4xl font-bold mb-4">
+                        <h1 className="text-4xl font-bold mb-4 text-center">
                             Jelajahi Jaringan Alumni
                         </h1>
                         <p className="text-gray-500 mb-8 max-w-2xl text-center">
@@ -72,8 +72,7 @@ export default function Alumni(props: PageProps) {
                 <section className="flex flex-col items-center justify-center hj rp hr ki">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full container">
                         {Array.from({ length: 8 }).map((_, index) => (
-                            <Link
-                                href={`/job/${index}`}
+                            <div
                                 key={index}
                                 className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
                             >
@@ -112,11 +111,7 @@ export default function Alumni(props: PageProps) {
                                         Perusahaan/Instansi : PT. Exxon Mobile
                                     </span>
                                 </div>
-
-                                {/* <p className="col-span-2 text-sm font-bold mt-4 border-t border-neutral-200 pt-3">
-                                    Status : Aktif
-                                </p> */}
-                            </Link>
+                            </div>
                         ))}
                     </div>
                     <div className="mt-8">

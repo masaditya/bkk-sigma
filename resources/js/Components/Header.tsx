@@ -136,10 +136,10 @@ const Header = (props: { user?: User; page?: string }) => {
                                 </Link>
                                 <Link
                                     href="/register"
-                                    className={`${stickyMenu && ""} ${
+                                    className={`${
                                         !navigationOpen &&
                                         "lk hover:!text-gray-700"
-                                    } gh dk rg tc wf xf _l gi hi sh ${
+                                    } gh dk rg tc wf xf _l gi hi sh !text-white ${
                                         props.page === "home" && "hh/[0.15]"
                                     }`}
                                 >
@@ -149,9 +149,9 @@ const Header = (props: { user?: User; page?: string }) => {
                         ) : (
                             <Link
                                 href="/dashboard"
-                                className={`${stickyMenu && "sh"} ${
+                                className={`${
                                     !navigationOpen && "lk hover:!text-gray-700"
-                                } gh dk rg tc wf xf _l gi hi ${
+                                } gh dk rg tc wf xf _l gi hi sh !text-white ${
                                     props.page === "home" && "hh/[0.15]"
                                 }`}
                             >

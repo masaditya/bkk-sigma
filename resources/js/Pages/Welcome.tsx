@@ -1,6 +1,7 @@
 import { PageProps } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
+import { Link } from "@inertiajs/react";
 
 export default function Welcome(props: PageProps) {
     return (
@@ -49,12 +50,12 @@ export default function Welcome(props: PageProps) {
                                 </p>
 
                                 <div className="tc tf yo zf mb">
-                                    <a
-                                        href="#"
+                                    <Link
+                                        href="/job"
                                         className="ek jk lk gh gi hi rg ml il vc _d _l !font-semibold"
                                     >
                                         Cari Lowongan
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
                         </div>
