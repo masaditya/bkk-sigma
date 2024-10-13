@@ -21,6 +21,13 @@ export default function Login({
         remember: false,
     });
 
+    /**
+     * Submits the login form.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} e - The form event.
+     *
+     * @return {void}
+     */
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 

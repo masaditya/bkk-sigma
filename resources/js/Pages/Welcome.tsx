@@ -2,8 +2,11 @@ import { PageProps } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Link } from "@inertiajs/react";
+import { Carousel } from "antd";
+import { useWindowSize } from "usehooks-ts";
 
 export default function Welcome(props: PageProps) {
+    const { width = 0 } = useWindowSize();
     return (
         <div>
             <Header user={props.auth.user} page="home" />
@@ -266,30 +269,36 @@ export default function Welcome(props: PageProps) {
                 {/* ===== Clients Start ===== */}
                 <section className="pj vp mr">
                     {/* Section Title Start */}
-                    <div x-data="{ sectionTitle: `Trusted by Global Brands`, sectionTitleText: `It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.`}">
+                    <div>
                         <div className="animate_top bb ze rj ki xn vq">
-                            <h2
-                                x-text="sectionTitle"
-                                className="fk vj pr kk wm on/5 gq/2 bb _b"
-                            ></h2>
-                            <p
-                                className="bb on/5 wo/5 hq"
-                                x-text="sectionTitleText"
-                            />
+                            <h2 className="fk vj pr kk wm on/5 gq/2 bb _b">
+                                Perusahaan Mitra Kami
+                            </h2>
+                            <p className="bb on/5 wo/5 hq">
+                                Kami bangga bermitra dengan berbagai perusahaan
+                                terkemuka di berbagai industri yang berkomitmen
+                                memberikan peluang karier terbaik untuk alumni
+                                SMKN 1 Bojonegoro. Bersama, kami menciptakan
+                                hubungan yang saling menguntungkan antara
+                                perusahaan dan lulusan berkualitas.
+                            </p>
                         </div>
                     </div>
                     {/* Section Title End */}
                     <div className="bb ze ah ch pm hj xp ki xn 2xl:ud-px-49 bc">
-                        <div className="wc rf qn zf cp kq xf wf">
+                        <Carousel
+                            autoplay
+                            autoplaySpeed={1000}
+                            slidesToShow={
+                                width > 1024 ? 5 : width > 768 ? 3 : 2
+                            }
+                            slidesToScroll={1}
+                            infinite
+                        >
                             <a href="#" className="rc animate_top">
                                 <img
                                     className="th wl ml il zl om"
                                     src="/images/brand-light-01.svg"
-                                    alt="Clients"
-                                />
-                                <img
-                                    className="xc sk ml il zl nm"
-                                    src="/images/brand-dark-01.svg"
                                     alt="Clients"
                                 />
                             </a>
@@ -299,21 +308,11 @@ export default function Welcome(props: PageProps) {
                                     src="/images/brand-light-02.svg"
                                     alt="Clients"
                                 />
-                                <img
-                                    className="xc sk ml il zl nm"
-                                    src="/images/brand-dark-02.svg"
-                                    alt="Clients"
-                                />
                             </a>
                             <a href="#" className="rc animate_top">
                                 <img
                                     className="tk ml il zl om"
                                     src="/images/brand-light-03.svg"
-                                    alt="Clients"
-                                />
-                                <img
-                                    className="xc sk ml il zl nm"
-                                    src="/images/brand-dark-03.svg"
                                     alt="Clients"
                                 />
                             </a>
@@ -323,21 +322,11 @@ export default function Welcome(props: PageProps) {
                                     src="/images/brand-light-04.svg"
                                     alt="Clients"
                                 />
-                                <img
-                                    className="xc sk ml il zl nm"
-                                    src="/images/brand-dark-04.svg"
-                                    alt="Clients"
-                                />
                             </a>
                             <a href="#" className="rc animate_top">
                                 <img
                                     className="tk ml il zl om"
                                     src="/images/brand-light-05.svg"
-                                    alt="Clients"
-                                />
-                                <img
-                                    className="xc sk ml il zl nm"
-                                    src="/images/brand-dark-05.svg"
                                     alt="Clients"
                                 />
                             </a>
@@ -347,13 +336,8 @@ export default function Welcome(props: PageProps) {
                                     src="/images/brand-light-06.svg"
                                     alt="Clients"
                                 />
-                                <img
-                                    className="xc sk ml il zl nm"
-                                    src="/images/brand-dark-06.svg"
-                                    alt="Clients"
-                                />
                             </a>
-                        </div>
+                        </Carousel>
                     </div>
                 </section>
 
