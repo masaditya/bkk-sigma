@@ -410,12 +410,12 @@ export default function Welcome(props: PageProps) {
                                         alt="Blog"
                                     />
                                     <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                        <a
-                                            href="./blog-single.html"
+                                        <Link
+                                            href={`/article/${1}`}
                                             className="vc ek rg lk gh sl ml il gi hi"
                                         >
                                             Read More
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="yh">
@@ -436,10 +436,10 @@ export default function Welcome(props: PageProps) {
                                         </div>
                                     </div>
                                     <h4 className="ek tj ml il kk wm xl eq lb">
-                                        <a href="blog-single.html">
+                                        <Link href={`/article/${1}`}>
                                             Free advertising for your online
                                             business
-                                        </a>
+                                        </Link>
                                     </h4>
                                 </div>
                             </div>
@@ -452,12 +452,12 @@ export default function Welcome(props: PageProps) {
                                         alt="Blog"
                                     />
                                     <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                        <a
-                                            href="./blog-single.html"
+                                        <Link
+                                            href={`/article/${2}`}
                                             className="vc ek rg lk gh sl ml il gi hi"
                                         >
                                             Read More
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="yh">
@@ -478,10 +478,10 @@ export default function Welcome(props: PageProps) {
                                         </div>
                                     </div>
                                     <h4 className="ek tj ml il kk wm xl eq lb">
-                                        <a href="blog-single.html">
+                                        <Link href={`/article/${2}`}>
                                             9 simple ways to improve your design
                                             skills
-                                        </a>
+                                        </Link>
                                     </h4>
                                 </div>
                             </div>
@@ -494,12 +494,12 @@ export default function Welcome(props: PageProps) {
                                         alt="Blog"
                                     />
                                     <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                        <a
-                                            href="./blog-single.html"
+                                        <Link
+                                            href={`/article/${3}`}
                                             className="vc ek rg lk gh sl ml il gi hi"
                                         >
                                             Read More
-                                        </a>
+                                        </Link>
                                     </div>
                                 </div>
                                 <div className="yh">
@@ -520,10 +520,10 @@ export default function Welcome(props: PageProps) {
                                         </div>
                                     </div>
                                     <h4 className="ek tj ml il kk wm xl eq lb">
-                                        <a href="blog-single.html">
+                                        <Link href={`/article/${3}`}>
                                             Tips to quickly improve your coding
                                             speed.
-                                        </a>
+                                        </Link>
                                     </h4>
                                 </div>
                             </div>

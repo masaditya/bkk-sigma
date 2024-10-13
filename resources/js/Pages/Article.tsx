@@ -64,10 +64,10 @@ export default function Article(props: PageProps) {
                                             </div>
                                         </div>
                                         <h4 className="ek tj ml il kk wm xl eq lb">
-                                            <a href="blog-single.html">
+                                            <Link href={`/article/${index}`}>
                                                 Free advertising for your online
                                                 business
-                                            </a>
+                                            </Link>
                                         </h4>
                                     </div>
                                 </div>
