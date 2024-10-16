@@ -2,17 +2,18 @@ import InputLabel from "@/Components/InputLabel";
 import Modal from "@/Components/Modal";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, useForm } from "@inertiajs/react";
+import { Head, useForm, usePage } from "@inertiajs/react";
+import { Divider, notification } from "antd";
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 
-export default function Dashboard(props: any) {
-    const { user, majors, companies, statuses } = props;
+export default function Dashboard(pageProps: any) {
+    const { user, majors, companies, statuses, errors } = pageProps;
 
-    const { data, setData, post, processing, errors } = useForm<
+    const { data, setData, post } = useForm<
         {
-            photo: File | null;
-            document: File | null;
+            photo: File | null | string;
+            document: File | null | string;
         } & Record<string, any>
     >({
         name: user.name || "",
@@ -29,8 +30,8 @@ export default function Dashboard(props: any) {
         company_industry_id: user.company_industry_id || "",
         phone: user.phone || "",
         address: user.address || "",
-        photo: null,
-        document: null,
+        photo: user.photo || null,
+        document: user.document || null,
         gender: user.gender || "",
     });
 
@@ -62,6 +63,18 @@ export default function Dashboard(props: any) {
                     "Content-Type": "multipart/form-data",
                 },
                 data: formData,
+                onSuccess: () => {
+                    notification.success({
+                        message: "Berhasil!",
+                        description: "Data berhasil disimpan!",
+                    });
+                },
+                onError: () => {
+                    notification.error({
+                        message: "Ups!",
+                        description: "Data gagal disimpan!",
+                    });
+                },
             });
         },
         [data, post]
@@ -71,12 +84,11 @@ export default function Dashboard(props: any) {
         <AuthenticatedLayout
             header={
                 <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Dashboard
+                    Tracer Form
                 </h2>
             }
         >
             <Head title="Dashboard" />
-
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -95,7 +107,7 @@ export default function Dashboard(props: any) {
                                     </p>
                                 </div>
                                 <div className="grid grid-cols-2 gap-6 mt-4">
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="name"
                                             value="Nama"
@@ -115,7 +127,7 @@ export default function Dashboard(props: any) {
                                             }
                                         />
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="email"
                                             value="Email"
@@ -138,8 +150,155 @@ export default function Dashboard(props: any) {
                                             }}
                                         />
                                     </div>
-                                    <div>
-                                        <InputLabel htmlFor="NIS" value="NIS" />
+                                    <div className="col-span-2 lg:col-span-1">
+                                        <InputLabel
+                                            htmlFor="address"
+                                            value="Alamat"
+                                        />
+                                        <TextInput
+                                            value={data.address}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "address",
+                                                    e.target.value
+                                                )
+                                            }
+                                            className="w-full"
+                                            id="address"
+                                            name="address"
+                                            type="text"
+                                            required
+                                            autoComplete="off"
+                                            placeholder="Isi dengan alamat"
+                                        />
+                                    </div>
+                                    <div className="col-span-2 lg:col-span-1">
+                                        <InputLabel
+                                            htmlFor="phone"
+                                            value="Nomor Telepon"
+                                        />
+                                        <TextInput
+                                            value={data.phone}
+                                            onChange={(e) =>
+                                                setData("phone", e.target.value)
+                                            }
+                                            className="w-full"
+                                            id="phone"
+                                            name="phone"
+                                            type="text"
+                                            required
+                                            autoComplete="off"
+                                            placeholder="Isi dengan nomor telepon"
+                                        />
+                                    </div>
+                                    <div className="col-span-2 lg:col-span-1 flex justify-between flex-wrap">
+                                        <div>
+                                            <InputLabel
+                                                htmlFor="photo"
+                                                value="Foto"
+                                            />
+                                            <input
+                                                onChange={(e) => {
+                                                    setData(
+                                                        "photo",
+                                                        e.target.files?.[0] ||
+                                                            null
+                                                    );
+                                                }}
+                                                type="file"
+                                                id="photo"
+                                                name="photo"
+                                                accept="image/*"
+                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                            />
+                                        </div>
+                                        {data.photo && (
+                                            <img
+                                                className="w-32 h-32 mt-4 rounded-lg object-cover"
+                                                src={
+                                                    typeof data.photo ===
+                                                    "string"
+                                                        ? data.photo
+                                                        : URL.createObjectURL(
+                                                              data.photo
+                                                          )
+                                                }
+                                                alt="photo-preview"
+                                            />
+                                        )}
+                                    </div>
+
+                                    <div className="col-span-2 lg:col-span-1">
+                                        <InputLabel
+                                            htmlFor="gender"
+                                            value="Jenis Kelamin"
+                                        />
+                                        <div className="flex items-center mt-2">
+                                            <div className="flex items-center mr-4">
+                                                <input
+                                                    checked={
+                                                        data.gender === "male"
+                                                    }
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "gender",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    type="radio"
+                                                    id="male"
+                                                    name="gender"
+                                                    value="male"
+                                                    className="mr-2"
+                                                />
+                                                <label
+                                                    htmlFor="male"
+                                                    className="text-gray-500"
+                                                >
+                                                    Laki-laki
+                                                </label>
+                                            </div>
+                                            <div className="flex items-center">
+                                                <input
+                                                    checked={
+                                                        data.gender === "female"
+                                                    }
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "gender",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    type="radio"
+                                                    id="female"
+                                                    name="gender"
+                                                    value="female"
+                                                    className="mr-2"
+                                                />
+                                                <label
+                                                    htmlFor="female"
+                                                    className="text-gray-500"
+                                                >
+                                                    Perempuan
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <Divider
+                                        orientation="left"
+                                        className="col-span-2"
+                                    >
+                                        <span className="text-gray-500">
+                                            Data Alumni
+                                        </span>
+                                    </Divider>
+
+                                    <div className="col-span-2 lg:col-span-1">
+                                        <InputLabel
+                                            htmlFor="NIS"
+                                            value="Nomor Induk Siswa"
+                                        />
                                         <TextInput
                                             value={data.NIS}
                                             onChange={(e) =>
@@ -154,7 +313,7 @@ export default function Dashboard(props: any) {
                                             placeholder="Isi dengan Nomor Induk Siswa anda"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="graduation_year"
                                             value="Tahun Lulus"
@@ -178,10 +337,10 @@ export default function Dashboard(props: any) {
                                             placeholder="Isi dengan tahun lulus"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="major_id"
-                                            value="Program Studi"
+                                            value="Jurusan"
                                         />
                                         <select
                                             value={data.major_id}
@@ -214,10 +373,10 @@ export default function Dashboard(props: any) {
                                             )}
                                         </select>
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="status_id"
-                                            value="Status"
+                                            value="Status Saat Ini"
                                         />
                                         <select
                                             value={data.status_id}
@@ -249,7 +408,56 @@ export default function Dashboard(props: any) {
                                             )}
                                         </select>
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1 flex justify-between flex-wrap items-center">
+                                        <div>
+                                            <InputLabel
+                                                htmlFor="document"
+                                                value="Curriculum Vitae / Resume"
+                                            />
+                                            <input
+                                                onChange={(e) => {
+                                                    setData(
+                                                        "document",
+                                                        e.target.files?.[0] ||
+                                                            null
+                                                    );
+                                                }}
+                                                type="file"
+                                                id="document"
+                                                name="document"
+                                                accept="application/pdf"
+                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                            />
+                                        </div>
+                                        {data.document && (
+                                            <a
+                                                className="px-2 py-1 rounded bg-blue-500 text-white h-fit"
+                                                target="_blank"
+                                                href={
+                                                    typeof data.document ===
+                                                    "string"
+                                                        ? data.document
+                                                        : URL.createObjectURL(
+                                                              data.document
+                                                          )
+                                                }
+                                                rel="noopener noreferrer"
+                                            >
+                                                Preview
+                                            </a>
+                                        )}
+                                    </div>
+
+                                    <Divider
+                                        orientation="left"
+                                        className="col-span-2"
+                                    >
+                                        <span className="text-gray-500">
+                                            Data Pekerjaan
+                                        </span>
+                                    </Divider>
+
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="company"
                                             value="Perusahaan / Instansi"
@@ -270,7 +478,7 @@ export default function Dashboard(props: any) {
                                             placeholder="Isi dengan instansi"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="company_industry_id"
                                             value="Industri"
@@ -307,7 +515,7 @@ export default function Dashboard(props: any) {
                                             )}
                                         </select>
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="position"
                                             value="Jabatan"
@@ -328,69 +536,17 @@ export default function Dashboard(props: any) {
                                             placeholder="Isi dengan jabatan"
                                         />
                                     </div>
-                                    <div>
-                                        <InputLabel
-                                            htmlFor="address"
-                                            value="Alamat"
-                                        />
-                                        <TextInput
-                                            value={data.address}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "address",
-                                                    e.target.value
-                                                )
-                                            }
-                                            className="w-full"
-                                            id="address"
-                                            name="address"
-                                            type="text"
-                                            required
-                                            autoComplete="off"
-                                            placeholder="Isi dengan alamat"
-                                        />
-                                    </div>
-                                    <div>
-                                        <InputLabel
-                                            htmlFor="phone"
-                                            value="Nomor Telepon"
-                                        />
-                                        <TextInput
-                                            value={data.phone}
-                                            onChange={(e) =>
-                                                setData("phone", e.target.value)
-                                            }
-                                            className="w-full"
-                                            id="phone"
-                                            name="phone"
-                                            type="text"
-                                            required
-                                            autoComplete="off"
-                                            placeholder="Isi dengan nomor telepon"
-                                        />
-                                    </div>
-                                    <div>
-                                        <InputLabel
-                                            htmlFor="latest_degree"
-                                            value="Gelar Terakhir"
-                                        />
-                                        <TextInput
-                                            value={data.latest_degree}
-                                            onChange={(e) =>
-                                                setData(
-                                                    "latest_degree",
-                                                    e.target.value
-                                                )
-                                            }
-                                            className="w-full"
-                                            id="latest_degree"
-                                            name="latest_degree"
-                                            type="text"
-                                            autoComplete="off"
-                                            placeholder="Isi dengan gelar terakhir"
-                                        />
-                                    </div>
-                                    <div>
+
+                                    <Divider
+                                        orientation="left"
+                                        className="col-span-2"
+                                    >
+                                        <span className="text-gray-500">
+                                            Data Pendidikan
+                                        </span>
+                                    </Divider>
+
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="university"
                                             value="Universitas"
@@ -411,7 +567,7 @@ export default function Dashboard(props: any) {
                                             placeholder="Isi dengan universitas"
                                         />
                                     </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
                                             htmlFor="faculty"
                                             value="Fakultas"
@@ -432,97 +588,26 @@ export default function Dashboard(props: any) {
                                             placeholder="Isi dengan fakultas"
                                         />
                                     </div>
-                                    <div className="grid grid-cols-2 gap-6">
-                                        <div>
-                                            <InputLabel
-                                                htmlFor="photo"
-                                                value="Foto"
-                                            />
-                                            <input
-                                                onChange={(e) => {
-                                                    setData(
-                                                        "photo",
-                                                        e.target.files?.[0] ||
-                                                            null
-                                                    );
-                                                }}
-                                                type="file"
-                                                id="photo"
-                                                name="photo"
-                                                accept="image/*"
-                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                            />
-                                        </div>
-                                        <div>
-                                            <InputLabel
-                                                htmlFor="document"
-                                                value="Curriculum Vitae / Resume"
-                                            />
-                                            <input
-                                                onChange={(e) => {
-                                                    setData(
-                                                        "document",
-                                                        e.target.files?.[0] ||
-                                                            null
-                                                    );
-                                                }}
-                                                type="file"
-                                                id="document"
-                                                name="document"
-                                                accept="application/pdf"
-                                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
+                                    <div className="col-span-2 lg:col-span-1">
                                         <InputLabel
-                                            htmlFor="gender"
-                                            value="Jenis Kelamin"
+                                            htmlFor="latest_degree"
+                                            value="Gelar Terakhir"
                                         />
-                                        <div className="flex items-center mt-2">
-                                            <div className="flex items-center mr-4">
-                                                <input
-                                                    checked={
-                                                        data.gender === "male"
-                                                    }
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "gender",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    type="radio"
-                                                    id="male"
-                                                    name="gender"
-                                                    value="male"
-                                                    className="mr-2"
-                                                />
-                                                <span className="text-gray-500">
-                                                    Laki-laki
-                                                </span>
-                                            </div>
-                                            <div className="flex items-center">
-                                                <input
-                                                    checked={
-                                                        data.gender === "female"
-                                                    }
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            "gender",
-                                                            e.target.value
-                                                        )
-                                                    }
-                                                    type="radio"
-                                                    id="female"
-                                                    name="gender"
-                                                    value="female"
-                                                    className="mr-2"
-                                                />
-                                                <span className="text-gray-500">
-                                                    Perempuan
-                                                </span>
-                                            </div>
-                                        </div>
+                                        <TextInput
+                                            value={data.latest_degree}
+                                            onChange={(e) =>
+                                                setData(
+                                                    "latest_degree",
+                                                    e.target.value
+                                                )
+                                            }
+                                            className="w-full"
+                                            id="latest_degree"
+                                            name="latest_degree"
+                                            type="text"
+                                            autoComplete="off"
+                                            placeholder="Isi dengan gelar terakhir"
+                                        />
                                     </div>
                                 </div>
                             </div>

@@ -1,4 +1,4 @@
-import { PageProps } from "@/types";
+import { PageProps, TestimonialType } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Carousel, Pagination } from "antd";
@@ -14,7 +14,8 @@ import EmploymentStatusChart from "@/Components/charts/EmploymentStatusChart";
 import FurtherEducationEntrepreneurshipChart from "@/Components/charts/FurtherEducationEntrepreneurshipChart";
 import PartnerCompaniesChart from "@/Components/charts/PartnerCompaniesChart";
 
-export default function Alumni(props: PageProps) {
+export default function Alumni(props: any) {
+    console.log(props);
     return (
         <div>
             <Header user={props.auth.user} />
@@ -94,67 +95,74 @@ export default function Alumni(props: PageProps) {
                                 slidesToShow={1}
                                 slidesToScroll={1}
                             >
-                                {Array.from({ length: 3 }).map((_, index) => (
-                                    <div
-                                        className="swiper testimonial-01"
-                                        key={index}
-                                    >
-                                        {/* Additional required wrapper */}
-                                        <div className="swiper-wrapper">
-                                            {/* Slides */}
-                                            <div className="swiper-slide">
-                                                <div className="i hh rm sg vk xm bi qj">
-                                                    {/* Border Shape */}
-                                                    <span className="rc je md/2 gh xg h q r" />
-                                                    <span className="rc je md/2 mh yg h q p" />
-                                                    <div className="tc sf rn tn un zf dp">
-                                                        <img
-                                                            className="bf"
-                                                            src="/images/testimonial.png"
-                                                            alt="User"
-                                                        />
-                                                        <div>
+                                {props.testimonials.map(
+                                    (item: TestimonialType, index: number) => (
+                                        <div
+                                            className="swiper testimonial-01"
+                                            key={index}
+                                        >
+                                            {/* Additional required wrapper */}
+                                            <div className="swiper-wrapper">
+                                                {/* Slides */}
+                                                <div className="swiper-slide">
+                                                    <div className="i hh rm sg vk xm bi qj">
+                                                        {/* Border Shape */}
+                                                        <span className="rc je md/2 gh xg h q r" />
+                                                        <span className="rc je md/2 mh yg h q p" />
+                                                        <div className="tc sf rn tn un zf dp">
                                                             <img
-                                                                src="/images/icon-quote.svg"
-                                                                alt="Quote"
+                                                                className="bf w-[300px] h-[300px] rounded-full"
+                                                                src={
+                                                                    item.user
+                                                                        ?.photo
+                                                                }
+                                                                alt="User"
                                                             />
-                                                            <p className="ek ik xj _p kc fb">
-                                                                Lorem ipsum
-                                                                dolor sit amet,
-                                                                consectetur
-                                                                adipiscing elit.
-                                                                In dolor diam,
-                                                                feugiat quis
-                                                                enim sed,
-                                                                ullamcorper
-                                                                semper ligula.
-                                                                Mauris consequat
-                                                                justo volutpat.
-                                                            </p>
-                                                            <div className="tc yf vf">
-                                                                <div>
-                                                                    <span className="rc ek xj kk wm zb">
-                                                                        Devid
-                                                                        Smith
-                                                                    </span>
-                                                                    <span className="rc">
-                                                                        Founter
-                                                                        @democompany
-                                                                    </span>
-                                                                </div>
+                                                            <div>
                                                                 <img
-                                                                    className="rk"
-                                                                    src="/images/brand-light-02.svg"
-                                                                    alt="Brand"
+                                                                    src="/images/icon-quote.svg"
+                                                                    alt="Quote"
                                                                 />
+                                                                <p className="ek ik xj _p kc fb">
+                                                                    {item.quote}
+                                                                </p>
+                                                                <div className="tc yf vf">
+                                                                    <div>
+                                                                        <span className="rc ek xj kk wm zb">
+                                                                            {
+                                                                                item
+                                                                                    .user
+                                                                                    ?.name
+                                                                            }
+                                                                        </span>
+                                                                        <span className="rc">
+                                                                            {item
+                                                                                .user
+                                                                                ?.position ||
+                                                                                "-"}
+                                                                            @
+                                                                            {item
+                                                                                .user
+                                                                                ?.company ||
+                                                                                "-"}
+                                                                        </span>
+                                                                    </div>
+                                                                    <img
+                                                                        className="rk h-12"
+                                                                        src={
+                                                                            item.company_logo
+                                                                        }
+                                                                        alt="Brand"
+                                                                    />
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    )
+                                )}
                             </Carousel>
                         </div>
                     </div>

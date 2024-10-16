@@ -21,6 +21,13 @@ class Occupations extends Model
         'location',
         'company',
         'publisher_id',
-        'thumbnail'
+        'thumbnail',
+        'job_type',
+        'company_industry_id',
     ];
+
+    public function company_industry()
+    {
+        return $this->belongsTo(CompanyIndustry::class, 'company_industry_id');
+    }
 }

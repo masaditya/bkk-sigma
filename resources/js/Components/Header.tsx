@@ -16,7 +16,7 @@ const Header = (props: { user?: User; page?: string }) => {
     }, []);
 
     return (
-        <header className={` hh sm _k dj bl ll g s r vd ya cj`}>
+        <header className={`hh sm _k dj bl ll g s r vd cj z-10`}>
             <div className="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
                 <div className="vd to/4 tc wf yf">
                     <Link href="/">
@@ -85,6 +85,11 @@ const Header = (props: { user?: User; page?: string }) => {
                     <nav>
                         <ul className="tc _o sf yo cg ep">
                             <li>
+                                <Link href="/" className="xl">
+                                    Beranda
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/job" className="xl">
                                     Lowongan
                                 </Link>
@@ -122,19 +127,6 @@ const Header = (props: { user?: User; page?: string }) => {
                         {!props.user ? (
                             <>
                                 <Link
-                                    href="/login"
-                                    className={`${
-                                        stickyMenu && ""
-                                    } ek pk xl rg dk xf _l gi hi ok ${
-                                        props.page === "home" && "hh/[0.15]"
-                                    } ${
-                                        !navigationOpen &&
-                                        "nk hover:!text-gray-700  yl"
-                                    }`}
-                                >
-                                    Masuk
-                                </Link>
-                                <Link
                                     href="/register"
                                     className={`${
                                         !navigationOpen &&
@@ -144,6 +136,17 @@ const Header = (props: { user?: User; page?: string }) => {
                                     }`}
                                 >
                                     Daftar
+                                </Link>
+                                <Link
+                                    href="/login"
+                                    className={` ek pk xl rg dk xf _l gi hi ok ${
+                                        props.page === "home" && "hh/[0.15]"
+                                    } ${
+                                        !navigationOpen &&
+                                        "nk hover:!text-gray-700  yl"
+                                    }`}
+                                >
+                                    Masuk
                                 </Link>
                             </>
                         ) : (

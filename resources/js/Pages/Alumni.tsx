@@ -1,15 +1,45 @@
-import { PageProps } from "@/types";
+import { User } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Pagination } from "antd";
-import { Link } from "@inertiajs/react";
-import {
-    BankOutlined,
-    FileSyncOutlined,
-    NodeCollapseOutlined,
-} from "@ant-design/icons";
+import { router, usePage } from "@inertiajs/react";
+import { BankOutlined, FileSyncOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
-export default function Alumni(props: PageProps) {
+export default function Alumni(props: any) {
+    const { url } = usePage();
+    const currentQueryParams = new URLSearchParams(url.split("?")[1]);
+
+    const [name, setName] = useState(currentQueryParams.get("name"));
+    const [year, setYear] = useState(currentQueryParams.get("year"));
+
+    const handleReset = () => {
+        setName("");
+        setYear("");
+        router.get(
+            "/alumni",
+            {},
+            {
+                replace: true,
+                preserveState: true,
+            }
+        );
+    };
+
+    const handlePageChange = (page: number) => {
+        router.get(
+            "/alumni",
+            {
+                name: currentQueryParams.get("name"),
+                year: currentQueryParams.get("year"),
+                page: page,
+            },
+            {
+                replace: true,
+                preserveState: true,
+            }
+        );
+    };
     return (
         <div>
             <Header user={props.auth.user} />
@@ -27,7 +57,7 @@ export default function Alumni(props: PageProps) {
                         </p>
                         <form
                             className="grid grid-cols-2 gap-6 mt-8 w-full container"
-                            action="/job"
+                            action="/alumni"
                             method="GET"
                         >
                             <div className="col-span-2 md:col-span-1">
@@ -35,6 +65,8 @@ export default function Alumni(props: PageProps) {
                                     Nama
                                 </label>
                                 <input
+                                    value={name || ""}
+                                    onChange={(e) => setName(e.target.value)}
                                     type="text"
                                     name="name"
                                     id="name"
@@ -48,6 +80,8 @@ export default function Alumni(props: PageProps) {
                                 </label>
                                 <input
                                     type="number"
+                                    value={year || ""}
+                                    onChange={(e) => setYear(e.target.value)}
                                     id="year"
                                     name="year"
                                     min="2010"
@@ -58,10 +92,18 @@ export default function Alumni(props: PageProps) {
                                 />
                             </div>
                             <div className="col-span-2">
-                                <div className="tc xf">
+                                <div className="tc xf gap-8">
                                     <button className="vc rg lk gh ml il hi gi _l wf xf dd i">
                                         Cari Alumni
                                     </button>
+                                    {(name || year) && (
+                                        <button
+                                            type="reset"
+                                            onClick={handleReset}
+                                        >
+                                            Reset Filter
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </form>
@@ -71,44 +113,50 @@ export default function Alumni(props: PageProps) {
 
                 <section className="flex flex-col items-center justify-center hj rp hr ki">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full container">
-                        {Array.from({ length: 8 }).map((_, index) => (
+                        {props.alumnis.data.map((item: User, index: number) => (
                             <div
                                 key={index}
                                 className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
                             >
-                                <div className="grid gap-6 grid-cols-5 ">
+                                <div className="grid gap-6 grid-cols-5">
                                     <img
-                                        src="/images/testimonial.png"
-                                        alt="company-logo"
+                                        src={
+                                            item?.photo
+                                                ? item.photo
+                                                : item.gender == "male"
+                                                ? "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
+                                                : "https://i.pinimg.com/736x/1b/2e/31/1b2e314e767a957a44ed8f992c6d9098.jpg"
+                                        }
+                                        alt="alumni-photo"
                                         className="w-full h-full object-contain col-span-2 rounded-xl"
                                     />
                                     <div className="col-span-3 flex flex-col justify-center">
                                         <p className="text-lg font-bold">
-                                            Erling Haaland
+                                            {item.name}
                                         </p>
                                         <p className="text-gray-500">
-                                            Staff Akuntan Pajak
+                                            {item.position || "-"}
                                         </p>
 
                                         <p className="text-gray-500 text-sm">
-                                            Jakarta, Indonesia
+                                            {item.address || "-"}
                                         </p>
-                                        <div className="flex flex-wrap gap-2 mt-4">
-                                            <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1   ">
-                                                <FileSyncOutlined />
-                                                2022
-                                            </span>
-                                            <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1">
-                                                <BankOutlined />
-                                                Akuntansi
-                                            </span>
-                                        </div>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2 mt-4 col-span-5">
+                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1   ">
+                                            <FileSyncOutlined />
+                                            {item.graduation_year}
+                                        </span>
+                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1">
+                                            <BankOutlined />
+                                            {item?.major?.name || "-"}
+                                        </span>
                                     </div>
                                 </div>
 
                                 <div className="flex justify-between col-span-2 mt-4 text-sm font-bold border-t border-neutral-200 pt-3">
                                     <span>
-                                        Perusahaan/Instansi : PT. Exxon Mobile
+                                        Perusahaan/Instansi : {item.company}
                                     </span>
                                 </div>
                             </div>
@@ -116,9 +164,10 @@ export default function Alumni(props: PageProps) {
                     </div>
                     <div className="mt-8">
                         <Pagination
-                            current={1}
+                            current={props.alumnis.current_page}
+                            onChange={handlePageChange}
                             pageSize={10}
-                            total={50}
+                            total={props.alumnis.total}
                             showSizeChanger={false}
                         />
                     </div>

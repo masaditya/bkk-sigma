@@ -45,6 +45,21 @@ class User extends Authenticatable
         'is_alumni',
     ];
 
+    public function major()
+    {
+        return $this->belongsTo(Major::class, 'major_id', 'id');
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(EmploymentStatuses::class, 'status_id', 'id');
+    }
+
+    public function companyIndustry()
+    {
+        return $this->belongsTo(CompanyIndustry::class, 'company_industry_id', 'id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

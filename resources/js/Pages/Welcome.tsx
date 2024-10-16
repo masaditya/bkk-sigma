@@ -1,11 +1,19 @@
-import { PageProps } from "@/types";
+import { Article, User } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Link } from "@inertiajs/react";
 import { Carousel } from "antd";
 import { useWindowSize } from "usehooks-ts";
 
-export default function Welcome(props: PageProps) {
+type HomeProps = {
+    auth: {
+        user: User;
+    };
+    articles: Article[];
+};
+
+export default function Home(props: HomeProps) {
+    console.log(props.articles);
     const { width = 0 } = useWindowSize();
     return (
         <div>
@@ -402,131 +410,77 @@ export default function Welcome(props: PageProps) {
                     <div className="bb ye ki xn vq jb jo">
                         <div className="wc qf pn xo zf iq">
                             {/* Blog Item */}
-                            <div className="animate_top sg vk rm xm">
-                                <div className="c rc i z-1 pg">
-                                    <img
-                                        className="w-full"
-                                        src="/images/blog-01.png"
-                                        alt="Blog"
-                                    />
-                                    <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                        <Link
-                                            href={`/article/${1}`}
-                                            className="vc ek rg lk gh sl ml il gi hi"
-                                        >
-                                            Read More
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="yh">
-                                    <div className="tc uf wf ag jq">
-                                        <div className="tc wf ag">
-                                            <img
-                                                src="/images/icon-man.svg"
-                                                alt="User"
-                                            />
-                                            <p>Musharof Chy</p>
-                                        </div>
-                                        <div className="tc wf ag">
-                                            <img
-                                                src="/images/icon-calender.svg"
-                                                alt="Calender"
-                                            />
-                                            <p>25 Dec, 2025</p>
+                            {props.articles.map((article, index) => (
+                                <div
+                                    key={index}
+                                    className="animate_top sg vk rm xm"
+                                >
+                                    <div className="c rc i z-1 pg">
+                                        <img
+                                            className="w-full h-[250px] object-cover"
+                                            src={article.thumbnail}
+                                            alt="Blog"
+                                        />
+                                        <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
+                                            <Link
+                                                href={`/article/${article.id}`}
+                                                className="vc ek rg lk gh sl ml il gi hi"
+                                            >
+                                                Read More
+                                            </Link>
                                         </div>
                                     </div>
-                                    <h4 className="ek tj ml il kk wm xl eq lb">
-                                        <Link href={`/article/${1}`}>
-                                            Free advertising for your online
-                                            business
-                                        </Link>
-                                    </h4>
-                                </div>
-                            </div>
-                            {/* Blog Item */}
-                            <div className="animate_top sg vk rm xm">
-                                <div className="c rc i z-1 pg">
-                                    <img
-                                        className="w-full"
-                                        src="/images/blog-02.png"
-                                        alt="Blog"
-                                    />
-                                    <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                        <Link
-                                            href={`/article/${2}`}
-                                            className="vc ek rg lk gh sl ml il gi hi"
-                                        >
-                                            Read More
-                                        </Link>
+                                    <div className="yh">
+                                        <div className="tc uf wf ag jq">
+                                            <div className="tc wf ag">
+                                                <img
+                                                    src="/images/icon-man.svg"
+                                                    alt="User"
+                                                />
+                                                <p>
+                                                    {article.category?.name ||
+                                                        ""}
+                                                </p>
+                                            </div>
+                                            <div className="tc wf ag">
+                                                <img
+                                                    src="/images/icon-calender.svg"
+                                                    alt="Calender"
+                                                />
+                                                <p>
+                                                    {new Intl.DateTimeFormat(
+                                                        "id-ID",
+                                                        {
+                                                            day: "2-digit",
+                                                            month: "long",
+                                                            year: "numeric",
+                                                        }
+                                                    ).format(
+                                                        new Date(
+                                                            article.created_at
+                                                        )
+                                                    )}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <h4 className="ek tj ml il kk wm xl eq lb">
+                                            <Link
+                                                href={`/article/${article.id}`}
+                                            >
+                                                {article.title}
+                                            </Link>
+                                        </h4>
                                     </div>
                                 </div>
-                                <div className="yh">
-                                    <div className="tc uf wf ag jq">
-                                        <div className="tc wf ag">
-                                            <img
-                                                src="/images/icon-man.svg"
-                                                alt="User"
-                                            />
-                                            <p>Musharof Chy</p>
-                                        </div>
-                                        <div className="tc wf ag">
-                                            <img
-                                                src="/images/icon-calender.svg"
-                                                alt="Calender"
-                                            />
-                                            <p>25 Dec, 2025</p>
-                                        </div>
-                                    </div>
-                                    <h4 className="ek tj ml il kk wm xl eq lb">
-                                        <Link href={`/article/${2}`}>
-                                            9 simple ways to improve your design
-                                            skills
-                                        </Link>
-                                    </h4>
-                                </div>
-                            </div>
-                            {/* Blog Item */}
-                            <div className="animate_top sg vk rm xm">
-                                <div className="c rc i z-1 pg">
-                                    <img
-                                        className="w-full"
-                                        src="/images/blog-03.png"
-                                        alt="Blog"
-                                    />
-                                    <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                        <Link
-                                            href={`/article/${3}`}
-                                            className="vc ek rg lk gh sl ml il gi hi"
-                                        >
-                                            Read More
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="yh">
-                                    <div className="tc uf wf ag jq">
-                                        <div className="tc wf ag">
-                                            <img
-                                                src="/images/icon-man.svg"
-                                                alt="User"
-                                            />
-                                            <p>Musharof Chy</p>
-                                        </div>
-                                        <div className="tc wf ag">
-                                            <img
-                                                src="/images/icon-calender.svg"
-                                                alt="Calender"
-                                            />
-                                            <p>25 Dec, 2025</p>
-                                        </div>
-                                    </div>
-                                    <h4 className="ek tj ml il kk wm xl eq lb">
-                                        <Link href={`/article/${3}`}>
-                                            Tips to quickly improve your coding
-                                            speed.
-                                        </Link>
-                                    </h4>
-                                </div>
-                            </div>
+                            ))}
+                        </div>
+                        <div className="w-full text-center mt-8">
+                            <Link
+                                href="/article"
+                                className="vc ek kk hh rg ol il cm gi hi"
+                            >
+                                Lihat Semua Berita
+                            </Link>
                         </div>
                     </div>
                 </section>

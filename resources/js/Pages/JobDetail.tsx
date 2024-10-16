@@ -1,15 +1,52 @@
-import { PageProps } from "@/types";
+import { JobType, PageProps, User } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
-import { Pagination } from "antd";
-import { Link } from "@inertiajs/react";
+import { Carousel, notification, Pagination } from "antd";
+import { Link, router } from "@inertiajs/react";
 import {
     BankOutlined,
     FileSyncOutlined,
     LeftOutlined,
 } from "@ant-design/icons";
+import { useEffect } from "react";
+import { useWindowSize } from "usehooks-ts";
 
-export default function JobDetail(props: PageProps) {
+export default function JobDetail(props: {
+    job: JobType;
+    relatedJobs: JobType[];
+    auth: {
+        user: User;
+    };
+    isApplied: boolean;
+}) {
+    const { job, relatedJobs } = props;
+    const { width = 0 } = useWindowSize();
+
+    const handleApply = () => {
+        if (props.auth.user) {
+            router.post(
+                `/job/${job.id}/apply`,
+                { id: job.id },
+                {
+                    onSuccess: () => {
+                        notification.success({
+                            message: "Success",
+                            description: "Berhasil melamar lowongan ini!",
+                        });
+                    },
+                    onError: () => {
+                        notification.error({
+                            message: "Ups!",
+                            description: "Gagal melamar lowongan ini!",
+                        });
+                    },
+                }
+            );
+        } else {
+            router.get("/login");
+        }
+    };
+
     return (
         <div>
             <Header user={props.auth.user} />
@@ -27,26 +64,28 @@ export default function JobDetail(props: PageProps) {
                         <div className="mt-6 grid grid-cols-4 gap-6">
                             <div className="flex gap-6 lg:gap-10 col-span-4 lg:col-span-3 px-4 ">
                                 <img
-                                    src="/images/brand-light-01.svg"
+                                    src={job.thumbnail}
                                     alt="company-logo"
                                     className="w-20 h-20 lg:w-32 lg:h-32 object-contain shadow-lg p-2"
                                 />
                                 <div className="col-span-3 flex flex-col justify-center">
-                                    <p className="text-gray-500">PT. ABC</p>
+                                    <p className="text-gray-500">
+                                        {job.company}
+                                    </p>
                                     <p className="text-lg font-bold">
-                                        Software Developer
+                                        {job.title}
                                     </p>
                                     <p className="text-gray-500">
-                                        Jakarta, Indonesia
+                                        {job.location}
                                     </p>
                                     <div className="flex flex-wrap gap-2 mt-4">
                                         <span className="text-xs md:text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1   ">
                                             <FileSyncOutlined />
-                                            Full-time
+                                            {job?.job_type}
                                         </span>
                                         <span className="text-xs md:text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1">
                                             <BankOutlined />
-                                            Manufaktur
+                                            {job.company_industry?.name}
                                         </span>
                                     </div>
                                 </div>
@@ -55,11 +94,22 @@ export default function JobDetail(props: PageProps) {
                                 <p className="text-lg font-bold mb-3">
                                     Lamar Posisi ini?
                                 </p>
-                                <button className="bg-blue-500 text-white px-4 py-2 w-full rounded-lg hover:bg-blue-600 active:bg-blue-700">
-                                    Lamar
+                                <button
+                                    disabled={props.isApplied}
+                                    onClick={handleApply}
+                                    className="bg-blue-500 disabled:bg-neutral-300 text-white px-4 py-2 w-full rounded-lg hover:bg-blue-600 active:bg-blue-700"
+                                >
+                                    {props.isApplied
+                                        ? "Sudah Dilamar"
+                                        : "Lamar Sekarang"}
                                 </button>
                                 <p className="text-gray-500 text-sm mt-3">
-                                    Batas Lamar : 3 Januari 2024
+                                    Batas Lamar :{" "}
+                                    {new Intl.DateTimeFormat("id-ID", {
+                                        day: "2-digit",
+                                        month: "long",
+                                        year: "numeric",
+                                    }).format(new Date(job.deadline))}
                                 </p>
                             </div>
                         </div>
@@ -69,15 +119,80 @@ export default function JobDetail(props: PageProps) {
                                 Deskripsi Pekerjaan
                             </p>
 
-                            <div className="max-w-xl text-sm md:text-base">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Dolor sunt soluta, eaque,
-                                commodi quas officia ullam perferendis maiores
-                                alias nihil a eveniet accusamus distinctio
-                                dolores placeat maxime exercitationem deleniti
-                                sed.
-                            </div>
+                            <div
+                                className="max-w-xl text-sm md:text-base"
+                                dangerouslySetInnerHTML={{
+                                    __html: job.description,
+                                }}
+                            ></div>
                         </div>
+                    </div>
+                </section>
+
+                <section className="gj ki xn hj rp hr">
+                    <div className="container mx-auto">
+                        <p className="text-lg font-bold mb-3">
+                            Lowongan Terkait
+                        </p>
+
+                        <Carousel
+                            className="my-8"
+                            autoplay
+                            autoplaySpeed={2000}
+                            slidesToShow={
+                                width > 1024 ? 3 : width > 768 ? 2 : 1
+                            }
+                            infinite
+                            slidesToScroll={1}
+                            dots
+                            draggable
+                        >
+                            {relatedJobs.map((item, index) => (
+                                <Link
+                                    href={`/job/${index}`}
+                                    key={index}
+                                    className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
+                                >
+                                    <div className="grid gap-6 grid-cols-4 ">
+                                        <img
+                                            src={item.thumbnail}
+                                            alt="company-logo"
+                                            className="w-20 h-20 object-contain"
+                                        />
+                                        <div className="col-span-3 flex flex-col justify-center">
+                                            <p className="text-gray-500">
+                                                {item.company}
+                                            </p>
+                                            <p className="text-lg font-bold text-gray-600">
+                                                {item.title}
+                                            </p>
+                                            <p className="text-gray-500">
+                                                {item.location}
+                                            </p>
+                                        </div>
+                                        <div className="col-span-1 hidden lg:block"></div>
+                                        <div className="flex gap-2 col-span-4 lg:col-span-3">
+                                            <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center   ">
+                                                <FileSyncOutlined />
+                                                Full-time
+                                            </span>
+                                            <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center">
+                                                <BankOutlined />
+                                                Manufaktur
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <p className="col-span-2 text-sm font-bold mt-4 border-t border-neutral-200 pt-3 text-gray-500">
+                                        Batas lamar :{" "}
+                                        {Intl.DateTimeFormat("id-ID", {
+                                            day: "2-digit",
+                                            month: "long",
+                                            year: "numeric",
+                                        }).format(new Date(item.deadline))}
+                                    </p>
+                                </Link>
+                            ))}
+                        </Carousel>
                     </div>
                 </section>
                 {/* ===== Clients Start ===== */}

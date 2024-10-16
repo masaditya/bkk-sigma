@@ -1,15 +1,46 @@
-import { PageProps } from "@/types";
+import { Article as ArticleType } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Pagination } from "antd";
-import { Link } from "@inertiajs/react";
-import {
-    BankOutlined,
-    FileSyncOutlined,
-    NodeCollapseOutlined,
-} from "@ant-design/icons";
+import { Link, router, usePage } from "@inertiajs/react";
+import { useState } from "react";
 
-export default function Article(props: PageProps) {
+export default function Article(props: any) {
+    const { url } = usePage();
+    const currentQueryParams = new URLSearchParams(url.split("?")[1]);
+
+    const [name, setName] = useState(currentQueryParams.get("name"));
+    const [category, setCategory] = useState(
+        currentQueryParams.get("category")
+    );
+
+    const handleReset = () => {
+        setName("");
+        setCategory("");
+        router.get(
+            "/article",
+            {},
+            {
+                replace: true,
+                preserveState: true,
+            }
+        );
+    };
+
+    const handlePageChange = (page: number) => {
+        router.get(
+            "/article",
+            {
+                name: currentQueryParams.get("name"),
+                category: currentQueryParams.get("category"),
+                page: page,
+            },
+            {
+                replace: true,
+                preserveState: true,
+            }
+        );
+    };
     return (
         <div>
             <Header user={props.auth.user} />
@@ -25,60 +56,149 @@ export default function Article(props: PageProps) {
                             acara sekolah, serta perkembangan kerjasama industri
                             dengan BKK SMKN 1 Bojonegoro.
                         </p>
+                        <form
+                            className="grid grid-cols-2 gap-6 mt-8 w-full container"
+                            action="/article"
+                            method="GET"
+                        >
+                            <div className="col-span-2 md:col-span-1">
+                                <label className="rc ac" htmlFor="name">
+                                    Judul
+                                </label>
+                                <input
+                                    value={name || ""}
+                                    onChange={(e) => setName(e.target.value)}
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    placeholder="Cari berdasarkan judul"
+                                    className="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi"
+                                />
+                            </div>
+                            <div className="col-span-2 md:col-span-1">
+                                <label className="rc ac" htmlFor="category">
+                                    Kategori
+                                </label>
+                                <select
+                                    name="category"
+                                    id="category"
+                                    className="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi"
+                                    value={category || ""}
+                                    onChange={(e) =>
+                                        setCategory(e.target.value)
+                                    }
+                                >
+                                    <option value="" disabled>
+                                        Cari berdasarkan kategori
+                                    </option>
+                                    {props.categories.map(
+                                        (item: {
+                                            name: string;
+                                            id: string;
+                                        }) => (
+                                            <option
+                                                key={item.id}
+                                                value={item.id}
+                                            >
+                                                {item.name}
+                                            </option>
+                                        )
+                                    )}
+                                </select>
+                            </div>
+                            <div className="col-span-2">
+                                <div className="tc xf gap-8">
+                                    <button
+                                        type="submit"
+                                        className="vc rg lk gh ml il hi gi _l wf xf dd i"
+                                    >
+                                        Cari Berita
+                                    </button>
+                                    {(name || category) && (
+                                        <button
+                                            type="reset"
+                                            onClick={handleReset}
+                                        >
+                                            Reset Filter
+                                        </button>
+                                    )}
+                                </div>
+                            </div>
+                        </form>
                     </div>
                     <div className="bb ye ki xn vq jb jo">
                         <div className="wc qf pn xo zf iq">
                             {/* Blog Item */}
-                            {Array.from({ length: 9 }).map((_, index) => (
-                                <div className="animate_top sg vk rm xm">
-                                    <div className="c rc i z-1 pg">
-                                        <img
-                                            className="w-full"
-                                            src="/images/blog-01.png"
-                                            alt="Blog"
-                                        />
-                                        <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                            <Link
-                                                href={`/article/${index}`}
-                                                className="vc ek rg lk gh sl ml il gi hi"
-                                            >
-                                                Baca Selengkapnya
-                                            </Link>
-                                        </div>
-                                    </div>
-                                    <div className="yh">
-                                        <div className="tc uf wf ag jq">
-                                            <div className="tc wf ag">
-                                                <img
-                                                    src="/images/icon-man.svg"
-                                                    alt="User"
-                                                />
-                                                <p>Musharof Chy</p>
-                                            </div>
-                                            <div className="tc wf ag">
-                                                <img
-                                                    src="/images/icon-calender.svg"
-                                                    alt="Calender"
-                                                />
-                                                <p>25 Dec, 2025</p>
+                            {props.articles.data.map(
+                                (item: ArticleType, index: number) => (
+                                    <div
+                                        className="animate_top sg vk rm xm"
+                                        key={index}
+                                    >
+                                        <div className="c rc i z-1 pg">
+                                            <img
+                                                className="w-full h-[250px] object-cover"
+                                                src={item.thumbnail}
+                                                alt="Blog"
+                                            />
+                                            <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
+                                                <Link
+                                                    href={`/article/${item.id}`}
+                                                    className="vc ek rg lk gh sl ml il gi hi"
+                                                >
+                                                    Baca Selengkapnya
+                                                </Link>
                                             </div>
                                         </div>
-                                        <h4 className="ek tj ml il kk wm xl eq lb">
-                                            <Link href={`/article/${index}`}>
-                                                Free advertising for your online
-                                                business
-                                            </Link>
-                                        </h4>
+                                        <div className="yh">
+                                            <div className="tc uf wf ag jq">
+                                                <div className="tc wf ag">
+                                                    <img
+                                                        src="/images/icon-man.svg"
+                                                        alt="User"
+                                                    />
+                                                    <p>{item.category?.name}</p>
+                                                </div>
+                                                <div className="tc wf ag">
+                                                    <img
+                                                        src="/images/icon-calender.svg"
+                                                        alt="Calender"
+                                                    />
+                                                    <p>
+                                                        {Intl.DateTimeFormat(
+                                                            "id-ID",
+                                                            {
+                                                                year: "numeric",
+                                                                month: "long",
+                                                                day: "numeric",
+                                                            }
+                                                        ).format(
+                                                            new Date(
+                                                                item.created_at
+                                                            )
+                                                        )}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <h4 className="ek tj ml il kk wm xl eq lb">
+                                                <Link
+                                                    href={`/article/${item.id}`}
+                                                >
+                                                    {item.title}
+                                                </Link>
+                                            </h4>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                )
+                            )}
                         </div>
 
                         <div className="mt-8 mx-auto w-full flex justify-center i ji">
                             <Pagination
-                                current={1}
+                                onChange={handlePageChange}
+                                current={props.articles.current_page}
                                 pageSize={10}
-                                total={50}
+                                total={props.articles.total}
                                 showSizeChanger={false}
                             />
                         </div>

@@ -1,15 +1,48 @@
-import { PageProps } from "@/types";
+import { JobType, PageProps } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Pagination } from "antd";
-import { Link } from "@inertiajs/react";
-import {
-    BankOutlined,
-    FileSyncOutlined,
-    NodeCollapseOutlined,
-} from "@ant-design/icons";
+import { Link, router, usePage } from "@inertiajs/react";
+import { BankOutlined, FileSyncOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
-export default function Job(props: PageProps) {
+export default function Job(props: any) {
+    const { url } = usePage();
+    const currentQueryParams = new URLSearchParams(url.split("?")[1]);
+
+    const [name, setName] = useState(currentQueryParams.get("name"));
+    const [location, setLocation] = useState(
+        currentQueryParams.get("location")
+    );
+
+    const handleReset = () => {
+        setName("");
+        setLocation("");
+        router.get(
+            "/job",
+            {},
+            {
+                replace: true,
+                preserveState: true,
+            }
+        );
+    };
+
+    const handlePageChange = (page: number) => {
+        router.get(
+            "/job",
+            {
+                name: currentQueryParams.get("name"),
+                location: currentQueryParams.get("location"),
+                page: page,
+            },
+            {
+                replace: true,
+                preserveState: true,
+            }
+        );
+    };
+
     return (
         <div>
             <Header user={props.auth.user} />
@@ -35,6 +68,8 @@ export default function Job(props: PageProps) {
                                     Posisi Pekerjaan
                                 </label>
                                 <input
+                                    value={name ?? ""}
+                                    onChange={(e) => setName(e.target.value)}
                                     type="text"
                                     name="name"
                                     id="name"
@@ -47,6 +82,10 @@ export default function Job(props: PageProps) {
                                     Lokasi
                                 </label>
                                 <input
+                                    value={location ?? ""}
+                                    onChange={(e) =>
+                                        setLocation(e.target.value)
+                                    }
                                     type="text"
                                     name="location"
                                     id="location"
@@ -55,10 +94,18 @@ export default function Job(props: PageProps) {
                                 />
                             </div>
                             <div className="col-span-2">
-                                <div className="tc xf">
+                                <div className="tc xf gap-8">
                                     <button className="vc rg lk gh ml il hi gi _l wf xf dd i">
                                         Cari Pekerjaan
                                     </button>
+                                    {(name || location) && (
+                                        <button
+                                            type="reset"
+                                            onClick={handleReset}
+                                        >
+                                            Reset Filter
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </form>
@@ -68,51 +115,58 @@ export default function Job(props: PageProps) {
 
                 <section className="flex flex-col items-center justify-center hj rp hr ki">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full container">
-                        {Array.from({ length: 8 }).map((_, index) => (
+                        {props.jobs.data.map((item: JobType, index: number) => (
                             <Link
-                                href={`/job/${index}`}
+                                href={`/job/${item.id}`}
                                 key={index}
                                 className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
                             >
                                 <div className="grid gap-6 grid-cols-4 ">
                                     <img
-                                        src="/images/brand-light-01.svg"
+                                        src={item.thumbnail}
                                         alt="company-logo"
                                         className="w-20 h-20 object-contain"
                                     />
                                     <div className="col-span-3 flex flex-col justify-center">
-                                        <p className="text-gray-500">PT. ABC</p>
+                                        <p className="text-gray-500">
+                                            {item.company}
+                                        </p>
                                         <p className="text-lg font-bold">
-                                            Software Developer
+                                            {item.title}
                                         </p>
                                         <p className="text-gray-500">
-                                            Jakarta, Indonesia
+                                            {item.location}
                                         </p>
                                     </div>
-                                    <div className="col-span-1 hidden lg:block"></div>
-                                    <div className="flex gap-2 col-span-4 lg:col-span-3">
-                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center   ">
+                                    <div className="flex gap-3 col-span-4 lg:col-span-4 justify-end">
+                                        <span className="text-xs bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center   ">
                                             <FileSyncOutlined />
-                                            Full-time
+                                            {item?.job_type}
                                         </span>
-                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center">
+                                        <span className="text-xs bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center">
                                             <BankOutlined />
-                                            Manufaktur
+                                            {item?.company_industry?.name}
                                         </span>
                                     </div>
                                 </div>
 
                                 <p className="col-span-2 text-sm font-bold mt-4 border-t border-neutral-200 pt-3">
-                                    Batas lamar : 31 Desember 2024
+                                    Batas lamar :{" "}
+                                    {new Intl.DateTimeFormat("id-ID", {
+                                        day: "2-digit",
+                                        month: "long",
+                                        year: "numeric",
+                                    }).format(new Date(item.deadline))}
                                 </p>
                             </Link>
                         ))}
                     </div>
                     <div className="mt-8">
                         <Pagination
-                            current={1}
+                            onChange={handlePageChange}
+                            current={props.jobs.current_page}
                             pageSize={10}
-                            total={50}
+                            total={props.jobs.total}
                             showSizeChanger={false}
                         />
                     </div>
