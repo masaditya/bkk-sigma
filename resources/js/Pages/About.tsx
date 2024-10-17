@@ -111,17 +111,17 @@ export default function About(props: PageProps) {
                             <li>
                                 - Menghasilkan tamatan tingkat menengah yang
                                 berkualitas dengan berlandaskan agama, disiplin,
-                                dan karakter positif yang tinggi;
+                                dan karakter positif yang tinggi
                             </li>
                             <li>
                                 - Menerapkan manajemen pengelolaan yang mengacu
                                 pada standar ISO 9001;2008 dengan melibatkan
-                                semua komponen sekolah dan pihak-pihak terkait;
+                                semua komponen sekolah dan pihak-pihak terkait
                             </li>
                             <li>
                                 - Meningkatkan kerjasama dan menjalin komunikasi
                                 yang baik dengan pihak-pihak terkait, terutama
-                                Dunia Usaha/ Dunia Industri/ Instansi (DU/DI);
+                                Dunia Usaha/ Dunia Industri/ Instansi (DU/DI)
                             </li>
                             <li>
                                 - Memberikan pelayanan bagi tamatan dalam
@@ -130,6 +130,176 @@ export default function About(props: PageProps) {
                                 luar negeri.
                             </li>
                         </ul>
+                        <h4 className="font-semibold text-xl mb-3 mt-5">
+                            TUJUAN
+                        </h4>
+                        <ul>
+                            <li>
+                                - Sebagai wadah dalam mempertemukan tamatan
+                                dengan pencari kerja
+                            </li>
+                            <li>
+                                - Memberikan layanan kepada tamatan sesuai
+                                dengan tugas dan fungsi masing-masing seksi yang
+                                ada dalam BKK.
+                            </li>
+                            <li>
+                                - Sebagai wadah dalam pelatihan tamatan yang
+                                sesuai dengan permintaan pencari kerja
+                            </li>
+                            <li>
+                                - Sebagai wadah untuk menanamkan jiwa wirausaha
+                                bagi tamatan melalui pelatihan.
+                            </li>
+                            <li>
+                                - Memperoleh Link and Match antar sekolah dengan
+                                dunia kerja
+                            </li>
+                            <li>
+                                - Memfasilitasi lulusan baik dari SMK Negeri 1
+                                Bojonegoro yang siap latih untuk mendapatkan
+                                kerja yang layak dan sesuai dengan bidang
+                                kejuruannya
+                            </li>
+                        </ul>
+                        <h4 className="font-semibold text-xl mb-3 mt-5">
+                            RUANG LINGKUP KEGIATAN
+                        </h4>
+                        <ul>
+                            <li>
+                                1. Penyusunan data base siswa lulusan SMK
+                                pencari kerja dan perusahaan pencari tenaga
+                                kerja dan penelusuran tamatan siswa SMK
+                            </li>
+                            <li>
+                                2. Menjaring informasi tentang pasar kerja
+                                melalui iklan di media massa, internet,
+                                kunjungan ke dunia usaha (industri) maupun
+                                kerjasama dengan lembaga penyalur tenaga kerja
+                                dan Depnakertrans.
+                            </li>
+                            <li>
+                                3. Membuat leaflet informasi dan pemasaran
+                                lulusan SMK yang dikirim ke dunia usaha/industri
+                                yang terkait Depnakertrans.
+                            </li>
+                            <li>
+                                4. Penyaluran calon tenaga kerja lulusan SMK ke
+                                dunia usaha dan industry
+                            </li>
+                            <li>
+                                5. Melakukan proses tindak lanjut hasil
+                                pengiriman dan penempatan tenaga kerja melalui
+                                kegiatan penjajakan dan verifikasi
+                            </li>
+                            <li>
+                                6. Mengadakan program pelatihan ketrampilan
+                                tambahan/khusus bagi siswa dan lulusan SMK
+                                disesuaikan dengan bidang keahlian yang
+                                diperlukan.
+                            </li>
+                            <li>
+                                7. Mengadakan program bimbingan menghadapi
+                                tahapan proses penerimaan siswa dalam suatu
+                                pekerjaan ( wawancara, psikotest )
+                            </li>
+                            <li>
+                                8. Memberikan informasi kepada para ALUMNI
+                                ataupun para lulusan yang membutuhkan informasi
+                                tentang lowongan kerja.
+                            </li>
+                        </ul>
+                        <h4 className="font-semibold text-xl mb-3 mt-5">
+                            PENYALURAN DAN PENEMPATAN TAMATAN
+                        </h4>
+                        <ul>
+                            <li>
+                                Adapun pelaksanaan penyaluran dan penempatan
+                                tamatan yang dapat dilakukan BKK SMK adalah
+                                sebagai berikut:
+                            </li>
+                            <li>
+                                1. Menindak lanjuti kerjasama dengan industri
+                                pasangan yang telah menjadi mitra kerja dengan
+                                BKK sekolah.
+                            </li>
+                            <li>
+                                2. Melakukan penelusuran alumni dan dimasukkan
+                                ke dalam database sekolah.
+                            </li>
+                            <li>
+                                3. Merangkul pengurus dan pengelola Sekolah yang
+                                peduli dengan penempatan tenaga kerja dari
+                                alumni.
+                            </li>
+                            <li>
+                                4. Membuat website khusus BKK yang selalu up to
+                                date yang dapat di Link dengan situs-situs JOB
+                                CARRIER.
+                            </li>
+                            <li>
+                                5. Menanamkan jiwa enterpreunership kepada siswa
+                                melalui pelatihan ketrampilan untuk menjadi
+                                seorang wirausaha (enterpreuneur).
+                            </li>
+                        </ul>
+                        <h4 className="font-semibold text-xl mb-3 mt-5">
+                            KEGIATAN BURSA KERJA KHUSUS
+                        </h4>
+                        <ol>
+                            <li>
+                                1. Merencanakan program kerja hubungan industri
+                                setiap program studi
+                                <ul className="ml-3">
+                                    <li>
+                                        • Mengadakan pertemuan dengan Kajur
+                                        tentang penempatan siswa-siswi prakrin
+                                    </li>
+                                    <li>
+                                        • Mengadakan koordinasi dengan Ketua
+                                        Program studi tentang penempatan
+                                        siswa-siswi prakrin
+                                    </li>
+                                    <li>
+                                        • Mengadakan koordinasi dengan Ketua
+                                        Program Studi tentang guru monitoring.
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                2. Melakukan proses negosiasi dengan DU/DI dan
+                                pemerintah sebagai mitra dalam penempatan
+                                siswa-siswi prakrin.
+                            </li>
+                            <li>
+                                3. Menjalin kerjasama (MOU) dengan DU/DI dalam :
+                                <ul className="ml-3">
+                                    <li>• Singkronisasi Kurikulum</li>
+                                    <li>• Pelatihan</li>
+                                    <li>• Penempatan tamatan</li>
+                                </ul>
+                            </li>
+                            <li>4. Pemetaan DU/DI</li>
+                            <li>
+                                5. Menjalin kerjasama dengan Depnakertrans
+                                tentang pelatihan (Magang) dan penempatan
+                                tamatan.
+                            </li>
+                            <li>6. Membentuk Majelis Sekolah</li>
+                            <li>
+                                7. Membuat database penelusuran tamatan baik
+                                yang sudah bekerja maupun belum bekerja.
+                            </li>
+                            <li>8. Membentuk Ikatan alumni.</li>
+                            <li>9. Membuat mading informasi lowongan kerja.</li>
+                            <li>10. Membuat website khusus BKK</li>
+                            <li>11. Membuat Laporan Kegiatan</li>
+                            <li>12. Monitoring dan Evaluasi</li>
+                        </ol>
+                        <h4 className="font-semibold text-xl mb-3 mt-5">
+                            PENGELOLA/TEAM WORK BKK SMKN 1 Bojonegoro
+                        </h4>
+                        
                     </div>
                 </section>
 

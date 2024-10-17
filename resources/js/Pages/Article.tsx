@@ -129,67 +129,85 @@ export default function Article(props: any) {
                     <div className="bb ye ki xn vq jb jo">
                         <div className="wc qf pn xo zf iq">
                             {/* Blog Item */}
-                            {props.articles.data.map(
-                                (item: ArticleType, index: number) => (
-                                    <div
-                                        className="animate_top sg vk rm xm"
-                                        key={index}
-                                    >
-                                        <div className="c rc i z-1 pg">
-                                            <img
-                                                className="w-full h-[250px] object-cover"
-                                                src={item.thumbnail}
-                                                alt="Blog"
-                                            />
-                                            <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
-                                                <Link
-                                                    href={`/article/${item.id}`}
-                                                    className="vc ek rg lk gh sl ml il gi hi"
-                                                >
-                                                    Baca Selengkapnya
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className="yh">
-                                            <div className="tc uf wf ag jq">
-                                                <div className="tc wf ag">
-                                                    <img
-                                                        src="/images/icon-man.svg"
-                                                        alt="User"
-                                                    />
-                                                    <p>{item.category?.name}</p>
+                            {props.articles.data?.length > 0 ? (
+                                props.articles.data.map(
+                                    (item: ArticleType, index: number) => (
+                                        <div
+                                            className="animate_top sg vk rm xm"
+                                            key={index}
+                                        >
+                                            <div className="c rc i z-1 pg">
+                                                <img
+                                                    className="w-full h-[250px] object-cover"
+                                                    src={item.thumbnail}
+                                                    alt="Blog"
+                                                />
+                                                <div className="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
+                                                    <Link
+                                                        href={`/article/${item.id}`}
+                                                        className="vc ek rg lk gh sl ml il gi hi"
+                                                    >
+                                                        Baca Selengkapnya
+                                                    </Link>
                                                 </div>
-                                                <div className="tc wf ag">
-                                                    <img
-                                                        src="/images/icon-calender.svg"
-                                                        alt="Calender"
-                                                    />
-                                                    <p>
-                                                        {Intl.DateTimeFormat(
-                                                            "id-ID",
+                                            </div>
+                                            <div className="yh">
+                                                <div className="tc uf wf ag jq">
+                                                    <div className="tc wf ag">
+                                                        <img
+                                                            src="/images/icon-man.svg"
+                                                            alt="User"
+                                                        />
+                                                        <p>
                                                             {
-                                                                year: "numeric",
-                                                                month: "long",
-                                                                day: "numeric",
+                                                                item.category
+                                                                    ?.name
                                                             }
-                                                        ).format(
-                                                            new Date(
-                                                                item.created_at
-                                                            )
-                                                        )}
-                                                    </p>
+                                                        </p>
+                                                    </div>
+                                                    <div className="tc wf ag">
+                                                        <img
+                                                            src="/images/icon-calender.svg"
+                                                            alt="Calender"
+                                                        />
+                                                        <p>
+                                                            {Intl.DateTimeFormat(
+                                                                "id-ID",
+                                                                {
+                                                                    year: "numeric",
+                                                                    month: "long",
+                                                                    day: "numeric",
+                                                                }
+                                                            ).format(
+                                                                new Date(
+                                                                    item.created_at
+                                                                )
+                                                            )}
+                                                        </p>
+                                                    </div>
                                                 </div>
+                                                <h4 className="ek tj ml il kk wm xl eq lb">
+                                                    <Link
+                                                        href={`/article/${item.id}`}
+                                                    >
+                                                        {item.title}
+                                                    </Link>
+                                                </h4>
                                             </div>
-                                            <h4 className="ek tj ml il kk wm xl eq lb">
-                                                <Link
-                                                    href={`/article/${item.id}`}
-                                                >
-                                                    {item.title}
-                                                </Link>
-                                            </h4>
                                         </div>
-                                    </div>
+                                    )
                                 )
+                            ) : (
+                                <div className="text-center w-full col-span-3">
+                                    <img
+                                        src="https://img.freepik.com/free-vector/hand-drawn-no-data-concept_52683-127823.jpg"
+                                        alt="empty-data"
+                                        className="w-64 h-64 object-contain mx-auto "
+                                    />
+                                    <p className="text-neutral-300 font-semibold text-lg">
+                                        Tidak ada data yang ditemukan
+                                    </p>
+                                </div>
                             )}
                         </div>
 

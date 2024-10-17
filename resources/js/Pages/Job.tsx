@@ -115,51 +115,69 @@ export default function Job(props: any) {
 
                 <section className="flex flex-col items-center justify-center hj rp hr ki">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full container">
-                        {props.jobs.data.map((item: JobType, index: number) => (
-                            <Link
-                                href={`/job/${item.id}`}
-                                key={index}
-                                className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
-                            >
-                                <div className="grid gap-6 grid-cols-4 ">
-                                    <img
-                                        src={item.thumbnail}
-                                        alt="company-logo"
-                                        className="w-20 h-20 object-contain"
-                                    />
-                                    <div className="col-span-3 flex flex-col justify-center">
-                                        <p className="text-gray-500">
-                                            {item.company}
-                                        </p>
-                                        <p className="text-lg font-bold">
-                                            {item.title}
-                                        </p>
-                                        <p className="text-gray-500">
-                                            {item.location}
-                                        </p>
-                                    </div>
-                                    <div className="flex gap-3 col-span-4 lg:col-span-4 justify-end">
-                                        <span className="text-xs bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center   ">
-                                            <FileSyncOutlined />
-                                            {item?.job_type}
-                                        </span>
-                                        <span className="text-xs bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center">
-                                            <BankOutlined />
-                                            {item?.company_industry?.name}
-                                        </span>
-                                    </div>
-                                </div>
+                        {props.jobs.data.length > 0 ? (
+                            props.jobs.data.map(
+                                (item: JobType, index: number) => (
+                                    <Link
+                                        href={`/job/${item.id}`}
+                                        key={index}
+                                        className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
+                                    >
+                                        <div className="grid gap-6 grid-cols-4 ">
+                                            <img
+                                                src={item.thumbnail}
+                                                alt="company-logo"
+                                                className="w-20 h-20 object-contain"
+                                            />
+                                            <div className="col-span-3 flex flex-col justify-center">
+                                                <p className="text-gray-500">
+                                                    {item.company}
+                                                </p>
+                                                <p className="text-lg font-bold">
+                                                    {item.title}
+                                                </p>
+                                                <p className="text-gray-500">
+                                                    {item.location}
+                                                </p>
+                                            </div>
+                                            <div className="flex gap-3 col-span-4 lg:col-span-4 justify-end">
+                                                <span className="text-xs bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center   ">
+                                                    <FileSyncOutlined />
+                                                    {item?.job_type}
+                                                </span>
+                                                <span className="text-xs bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1 items-center">
+                                                    <BankOutlined />
+                                                    {
+                                                        item?.company_industry
+                                                            ?.name
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                <p className="col-span-2 text-sm font-bold mt-4 border-t border-neutral-200 pt-3">
-                                    Batas lamar :{" "}
-                                    {new Intl.DateTimeFormat("id-ID", {
-                                        day: "2-digit",
-                                        month: "long",
-                                        year: "numeric",
-                                    }).format(new Date(item.deadline))}
+                                        <p className="col-span-2 text-sm font-bold mt-4 border-t border-neutral-200 pt-3">
+                                            Batas lamar :{" "}
+                                            {new Intl.DateTimeFormat("id-ID", {
+                                                day: "2-digit",
+                                                month: "long",
+                                                year: "numeric",
+                                            }).format(new Date(item.deadline))}
+                                        </p>
+                                    </Link>
+                                )
+                            )
+                        ) : (
+                            <div className="text-center w-full col-span-3">
+                                <img
+                                    src="https://img.freepik.com/free-vector/hand-drawn-no-data-concept_52683-127823.jpg"
+                                    alt="empty-data"
+                                    className="w-64 h-64 object-contain mx-auto "
+                                />
+                                <p className="text-neutral-300 font-semibold text-lg">
+                                    Tidak ada data yang ditemukan
                                 </p>
-                            </Link>
-                        ))}
+                            </div>
+                        )}
                     </div>
                     <div className="mt-8">
                         <Pagination

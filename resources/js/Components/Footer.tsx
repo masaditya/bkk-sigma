@@ -1,5 +1,4 @@
 import { Link } from "@inertiajs/react";
-import React from "react";
 
 export const Footer = () => {
     return (
@@ -19,7 +18,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    href="/"
+                                    href="/article"
                                     className="xl text-xs lg:text-base"
                                 >
                                     Artikel dan Berita
@@ -27,7 +26,7 @@ export const Footer = () => {
                             </li>
                             <li>
                                 <Link
-                                    href="/"
+                                    href="https://wa.me/628993872173"
                                     className="xl text-xs lg:text-base"
                                 >
                                     Kontak

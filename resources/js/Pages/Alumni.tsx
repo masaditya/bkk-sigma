@@ -113,54 +113,70 @@ export default function Alumni(props: any) {
 
                 <section className="flex flex-col items-center justify-center hj rp hr ki">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8 w-full container">
-                        {props.alumnis.data.map((item: User, index: number) => (
-                            <div
-                                key={index}
-                                className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
-                            >
-                                <div className="grid gap-6 grid-cols-5">
-                                    <img
-                                        src={
-                                            item?.photo
-                                                ? item.photo
-                                                : item.gender == "male"
-                                                ? "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
-                                                : "https://i.pinimg.com/736x/1b/2e/31/1b2e314e767a957a44ed8f992c6d9098.jpg"
-                                        }
-                                        alt="alumni-photo"
-                                        className="w-full h-full object-contain col-span-2 rounded-xl"
-                                    />
-                                    <div className="col-span-3 flex flex-col justify-center">
-                                        <p className="text-lg font-bold">
-                                            {item.name}
-                                        </p>
-                                        <p className="text-gray-500">
-                                            {item.position || "-"}
-                                        </p>
+                        {props.alumnis.data.length > 0 ? (
+                            props.alumnis.data.map(
+                                (item: User, index: number) => (
+                                    <div
+                                        key={index}
+                                        className="p-6 rounded-lg hover:border-blue-500 hover:shadow-lg cursor-pointer bg-white border border-neutral-200"
+                                    >
+                                        <div className="grid gap-6 grid-cols-5">
+                                            <img
+                                                src={
+                                                    item?.photo
+                                                        ? item.photo
+                                                        : item.gender == "male"
+                                                        ? "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
+                                                        : "https://i.pinimg.com/736x/1b/2e/31/1b2e314e767a957a44ed8f992c6d9098.jpg"
+                                                }
+                                                alt="alumni-photo"
+                                                className="w-full h-full object-contain col-span-2 rounded-xl"
+                                            />
+                                            <div className="col-span-3 flex flex-col justify-center">
+                                                <p className="text-lg font-bold">
+                                                    {item.name}
+                                                </p>
+                                                <p className="text-gray-500">
+                                                    {item.position || "-"}
+                                                </p>
 
-                                        <p className="text-gray-500 text-sm">
-                                            {item.address || "-"}
-                                        </p>
-                                    </div>
-                                    <div className="flex flex-wrap gap-2 mt-4 col-span-5">
-                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1   ">
-                                            <FileSyncOutlined />
-                                            {item.graduation_year}
-                                        </span>
-                                        <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1">
-                                            <BankOutlined />
-                                            {item?.major?.name || "-"}
-                                        </span>
-                                    </div>
-                                </div>
+                                                <p className="text-gray-500 text-sm">
+                                                    {item.address || "-"}
+                                                </p>
+                                            </div>
+                                            <div className="flex flex-wrap gap-2 mt-4 col-span-5">
+                                                <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1   ">
+                                                    <FileSyncOutlined />
+                                                    {item.graduation_year}
+                                                </span>
+                                                <span className="text-sm bg-blue-400 w-fit px-3 py-1 rounded-lg text-white flex gap-1">
+                                                    <BankOutlined />
+                                                    {item?.major?.name || "-"}
+                                                </span>
+                                            </div>
+                                        </div>
 
-                                <div className="flex justify-between col-span-2 mt-4 text-sm font-bold border-t border-neutral-200 pt-3">
-                                    <span>
-                                        Perusahaan/Instansi : {item.company}
-                                    </span>
-                                </div>
+                                        <div className="flex justify-between col-span-2 mt-4 text-sm font-bold border-t border-neutral-200 pt-3">
+                                            <span>
+                                                Perusahaan/Instansi :{" "}
+                                                {item.company}
+                                            </span>
+                                        </div>
+                                    </div>
+                                )
+                            )
+                        ) : (
+                            <div className="text-center w-full col-span-3">
+                                <img
+                                    src="https://img.freepik.com/free-vector/hand-drawn-no-data-concept_52683-127823.jpg"
+                                    alt="empty-data"
+                                    className="w-64 h-64 object-contain mx-auto "
+                                />
+                                <p className="text-neutral-300 font-semibold text-lg">
+                                    Tidak ada data yang ditemukan
+                                </p>
                             </div>
-                        ))}
+                        )}
                     </div>
                     <div className="mt-8">
                         <Pagination

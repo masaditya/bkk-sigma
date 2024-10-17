@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Article;
 use App\Models\CompanyIndustry;
 use App\Models\EmploymentStatuses;
@@ -26,13 +27,15 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $articles = Article::with(['category'])->latest()->take(3)->get();
+        $companies = Admin::where('is_show', true)->whereNotNull('logo')->get();
         return Inertia::render('Welcome', [
             'user' => $user,
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'laravelVersion' => Application::VERSION,
             'phpVersion' => PHP_VERSION,
-            'articles' => $articles
+            'articles' => $articles,
+            'companies' => $companies
         ]);
     }
 

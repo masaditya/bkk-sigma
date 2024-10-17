@@ -10,10 +10,10 @@ type HomeProps = {
         user: User;
     };
     articles: Article[];
+    companies: any[];
 };
 
 export default function Home(props: HomeProps) {
-    console.log(props.articles);
     const { width = 0 } = useWindowSize();
     return (
         <div>
@@ -303,48 +303,15 @@ export default function Home(props: HomeProps) {
                             slidesToScroll={1}
                             infinite
                         >
-                            <a href="#" className="rc animate_top">
-                                <img
-                                    className="th wl ml il zl om"
-                                    src="/images/brand-light-01.svg"
-                                    alt="Clients"
-                                />
-                            </a>
-                            <a href="#" className="rc animate_top">
-                                <img
-                                    className="tk ml il zl om"
-                                    src="/images/brand-light-02.svg"
-                                    alt="Clients"
-                                />
-                            </a>
-                            <a href="#" className="rc animate_top">
-                                <img
-                                    className="tk ml il zl om"
-                                    src="/images/brand-light-03.svg"
-                                    alt="Clients"
-                                />
-                            </a>
-                            <a href="#" className="rc animate_top">
-                                <img
-                                    className="tk ml il zl om"
-                                    src="/images/brand-light-04.svg"
-                                    alt="Clients"
-                                />
-                            </a>
-                            <a href="#" className="rc animate_top">
-                                <img
-                                    className="tk ml il zl om"
-                                    src="/images/brand-light-05.svg"
-                                    alt="Clients"
-                                />
-                            </a>
-                            <a href="#" className="rc animate_top">
-                                <img
-                                    className="tk ml il zl om"
-                                    src="/images/brand-light-06.svg"
-                                    alt="Clients"
-                                />
-                            </a>
+                            {props.companies.map((item) => (
+                                <div className="rc animate_top">
+                                    <img
+                                        className="th wl ml il zl om"
+                                        src={item.logo}
+                                        alt="Clients"
+                                    />
+                                </div>
+                            ))}
                         </Carousel>
                     </div>
                 </section>
