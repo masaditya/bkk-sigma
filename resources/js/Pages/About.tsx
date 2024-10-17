@@ -296,10 +296,6 @@ export default function About(props: PageProps) {
                             <li>11. Membuat Laporan Kegiatan</li>
                             <li>12. Monitoring dan Evaluasi</li>
                         </ol>
-                        <h4 className="font-semibold text-xl mb-3 mt-5">
-                            PENGELOLA/TEAM WORK BKK SMKN 1 Bojonegoro
-                        </h4>
-                        
                     </div>
                 </section>
 

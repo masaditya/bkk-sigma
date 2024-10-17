@@ -44,8 +44,7 @@ export default function Alumni(props: any) {
                         <div className="col-span-3 lg:col-span-1 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
                             <JobSectorChart />
                             <p className="text-sm text-gray-500 text-center mt-4">
-                                Untuk menunjukkan diversifikasi bidang pekerjaan
-                                lulusan.
+                                Untuk menunjukkan diversifikasi jurusan lulusan.
                             </p>
                         </div>
                         <div className="col-span-3 lg:col-span-1 bg-white border border-gray-200 rounded-lg hover:shadow-lg p-6">
@@ -111,7 +110,7 @@ export default function Alumni(props: any) {
                                                         <span className="rc je md/2 mh yg h q p" />
                                                         <div className="tc sf rn tn un zf dp">
                                                             <img
-                                                                className="bf w-[300px] h-[300px] rounded-full"
+                                                                className="bf w-[300px] h-[300px] rounded-full object-cover"
                                                                 src={
                                                                     item.user
                                                                         ?.photo
@@ -150,7 +149,8 @@ export default function Alumni(props: any) {
                                                                     <img
                                                                         className="rk h-12"
                                                                         src={
-                                                                            item.company_logo
+                                                                            item?.company_logo ||
+                                                                            "https://alumni.southernleytestateu.edu.ph/wp-content/uploads/2024/04/placeholder-company-30f7247c043cac59226403f669f2afea709784b1f52cc405c90672c3d9ec428a-Jimson-Olaybar.jpg"
                                                                         }
                                                                         alt="Brand"
                                                                     />

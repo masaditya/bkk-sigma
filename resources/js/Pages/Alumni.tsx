@@ -130,7 +130,7 @@ export default function Alumni(props: any) {
                                                         : "https://i.pinimg.com/736x/1b/2e/31/1b2e314e767a957a44ed8f992c6d9098.jpg"
                                                 }
                                                 alt="alumni-photo"
-                                                className="w-full h-full object-contain col-span-2 rounded-xl"
+                                                className="w-28 h-28 object-cover col-span-2 rounded-xl"
                                             />
                                             <div className="col-span-3 flex flex-col justify-center">
                                                 <p className="text-lg font-bold">

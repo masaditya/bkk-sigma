@@ -4,6 +4,7 @@ import { Footer } from "@/Components/Footer";
 import { Link } from "@inertiajs/react";
 import { Carousel } from "antd";
 import { useWindowSize } from "usehooks-ts";
+import { useEffect, useState } from "react";
 
 type HomeProps = {
     auth: {
@@ -13,8 +14,41 @@ type HomeProps = {
     companies: any[];
 };
 
+// TypeScript types
+interface DeferredPromptEvent extends Event {
+    prompt: () => void;
+    userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
+}
+
 export default function Home(props: HomeProps) {
     const { width = 0 } = useWindowSize();
+
+    const [deferredPrompt, setDeferredPrompt] =
+        useState<DeferredPromptEvent | null>(null);
+    const [isInstallable, setIsInstallable] = useState<boolean>(false);
+
+    useEffect(() => {
+        window.addEventListener("beforeinstallprompt", (e: Event) => {
+            e.preventDefault();
+            const event = e as DeferredPromptEvent; // Cast the event to DeferredPromptEvent type
+            setDeferredPrompt(event);
+            setIsInstallable(true);
+        });
+    }, []);
+
+    const handleInstallClick = () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === "accepted") {
+                    console.log("User accepted the install prompt");
+                } else {
+                    console.log("User dismissed the install prompt");
+                }
+                setDeferredPrompt(null);
+            });
+        }
+    };
     return (
         <div>
             <Header user={props.auth.user} page="home" />
@@ -60,13 +94,19 @@ export default function Home(props: HomeProps) {
                                     meraih karier impian.
                                 </p>
 
-                                <div className="tc tf yo zf mb">
+                                <div className="flex lg:flex-row flex-col justify-center lg:justify-start gap-8 flex-wrap mt-8">
                                     <Link
                                         href="/job"
-                                        className="ek jk lk gh gi hi rg ml il vc _d _l !font-semibold"
+                                        className="bg-blue-500 w-fit rounded-full text-white px-6 py-3 "
                                     >
                                         Cari Lowongan
                                     </Link>
+                                    <button
+                                        className="font-semibold hover:text-blue-400 text-left lg:text-center ml-4 lg:ml-0"
+                                        onClick={handleInstallClick}
+                                    >
+                                        Install Aplikasi
+                                    </button>
                                 </div>
                             </div>
                         </div>

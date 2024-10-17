@@ -55,11 +55,10 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        $job = Occupations::find($id);
+        $job = Occupations::with(['company_industry'])->find($id);
         $relatedJobs = Occupations::latest()->take(3)->get();
 
         $user = Auth::user();
-        $job = Occupations::find($id);
         $check = false;
         if ($user) {
             $check = Applicant::where('id_user', $user->id)->where('id_occupation', $job->id)->exists();

@@ -8,20 +8,27 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const EmploymentStatusChart = () => {
     // Data dummy untuk status pekerjaan lulusan
     const data = {
-        labels: ["Bekerja", "Mencari Pekerjaan", "Melanjutkan Studi"],
+        labels: [
+            "Bekerja",
+            "Melanjutkan Pendidikan",
+            "Berwirausaha",
+            "Lain-lain",
+        ],
         datasets: [
             {
-                label: "Status Pekerjaan Lulusan",
-                data: [65, 20, 15], // Persentase lulusan di masing-masing kategori
+                label: "Jumlah Lulusan 2024",
+                data: [242, 136, 72, 73], // Persentase lulusan di masing-masing kategori
                 backgroundColor: [
-                    "rgba(75, 192, 192, 0.6)", // Bekerja
-                    "rgba(255, 99, 132, 0.6)", // Mencari Pekerjaan
-                    "rgba(54, 162, 235, 0.6)", // Melanjutkan Studi
+                    "rgba(255, 159, 64, 0.6)", // Color 1
+                    "rgba(75, 192, 192, 0.6)", // Color 2
+                    "rgba(204, 0, 0, 0.6)", // Color 3
+                    "rgba(100, 149, 237, 0.6)", // Color 4
                 ],
                 borderColor: [
-                    "rgba(75, 192, 192, 1)",
-                    "rgba(255, 99, 132, 1)",
-                    "rgba(54, 162, 235, 1)",
+                    "rgba(255, 159, 64, 1)", // Color 1
+                    "rgba(75, 192, 192, 1)", // Color 2
+                    "rgba(204, 0, 0, 1)", // Color 3
+                    "rgba(100, 149, 237, 1)", // Color 4
                 ],
                 borderWidth: 1,
             },
