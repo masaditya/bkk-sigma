@@ -34,7 +34,7 @@ class AlumniController extends Controller
         if ($request->query('year')) {
             $alumnis = $alumnis->where('graduation_year', 'LIKE', "%{$request->query('year')}%");
         }
-        $alumnis = $alumnis->paginate(10, ['*'], 'page', $page);
+        $alumnis = $alumnis->paginate(9, ['*'], 'page', $page);
 
 
         return Inertia::render('Alumni', [

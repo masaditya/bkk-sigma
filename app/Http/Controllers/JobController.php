@@ -28,7 +28,7 @@ class JobController extends Controller
     {
         $user = Auth::user();
         $page = $request->query('page');
-        $jobs = Occupations::query()->with(['company_industry']);
+        $jobs = Occupations::query()->with(['company_industry'])->orderBy('created_at', 'desc');
         if ($request->query('name')) {
             $jobs = $jobs->where('title', 'LIKE', "%{$request->query('name')}%");
         }
@@ -36,7 +36,7 @@ class JobController extends Controller
         if ($request->query('location')) {
             $jobs = $jobs->where('location', 'LIKE', "%{$request->query('location')}%");
         }
-        $jobs = $jobs->paginate(10, ['*'], 'page', $page);
+        $jobs = $jobs->paginate(9, ['*'], 'page', $page);
 
 
         return Inertia::render('Job', [

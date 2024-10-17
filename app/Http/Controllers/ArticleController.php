@@ -35,7 +35,7 @@ class ArticleController extends Controller
         $user = Auth::user();
         $page = $request->query('page');
         $categories = Category::all();
-        $articles = Article::query()->with(['category']);
+        $articles = Article::query()->with(['category'])->orderBy('created_at', 'desc');
         if ($request->query('name')) {
             $articles = $articles->where('title', 'LIKE', "%{$request->query('name')}%");
         }
@@ -43,7 +43,7 @@ class ArticleController extends Controller
         if ($request->query('category')) {
             $articles = $articles->where('category_id', $request->query('category'));
         }
-        $articles = $articles->paginate(10, ['*'], 'page', $page);
+        $articles = $articles->paginate(9, ['*'], 'page', $page);
 
         return Inertia::render('Article', [
             'user' => $user,
