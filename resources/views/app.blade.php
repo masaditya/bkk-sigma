@@ -7,7 +7,32 @@
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#000000">
 
-    <title inertia>{{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" href="/favicon.png" />
+    <!-- CSRF Token -->
+
+    <!-- Meta Tags for SEO -->
+    <title>BKK Sigma SMKN 1 Bojonegoro | Pusat Informasi Karier & Lowongan Kerja Alumni</title>
+    <meta name="description" content="BKK Sigma SMKN 1 Bojonegoro membantu alumni menemukan peluang karier terbaik. Dapatkan informasi lowongan kerja, tracer study, dan jaringan alumni di sini.">
+    <meta name="keywords" content="BKK, SMKN 1 Bojonegoro, Bursa Kerja, Lowongan Kerja, Alumni SMK, Tracer Study, Karier, Pusat Karier SMK, Perusahaan Mitra, Peluang Kerja">
+    <meta name="author" content="BKK Sigma SMKN 1 Bojonegoro">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:title" content="BKK Sigma SMKN 1 Bojonegoro | Pusat Informasi Karier & Lowongan Kerja Alumni">
+    <meta property="og:description" content="Platform terintegrasi untuk membantu alumni SMKN 1 Bojonegoro dalam menemukan peluang karier dan berjejaring dengan perusahaan mitra.">
+    <meta property="og:image" content="https://bkk-sigma.dexotic.io/images/bkk-sigma.png"> <!-- Image link for preview -->
+    <meta property="og:url" content="https://bkk-sigma.dexotic.io">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BKK Sigma SMKN 1 Bojonegoro | Pusat Informasi Karier & Lowongan Kerja Alumni">
+    <meta name="twitter:description" content="Platform terdepan untuk membantu alumni menemukan karier yang sesuai dengan passion dan skill mereka.">
+    <meta name="twitter:image" content="https://bkk-sigma.dexotic.io/images/bkk-sigma.png"> <!-- Image link for Twitter card -->
+
+    <!-- Additional Meta Tags -->
+    <meta name="robots" content="index, follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">

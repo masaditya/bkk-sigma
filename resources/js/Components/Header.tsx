@@ -16,7 +16,7 @@ const Header = (props: { user?: User; page?: string }) => {
     }, []);
 
     return (
-        <header className={`hh sm _k dj bl ll g s r vd cj z-10`}>
+        <header className={`hh sm _k dj bl ll g s r vd cj z-30`}>
             <div className="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
                 <div className="vd to/4 tc wf yf">
                     <Link href="/">

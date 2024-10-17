@@ -8,7 +8,7 @@ import {
     FileSyncOutlined,
     LeftOutlined,
 } from "@ant-design/icons";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useWindowSize } from "usehooks-ts";
 
 export default function JobDetail(props: {
@@ -46,6 +46,12 @@ export default function JobDetail(props: {
             router.get("/login");
         }
     };
+
+    const hasPassedDeadline = useMemo(() => {
+        const deadline = new Date(job.deadline);
+        const now = new Date();
+        return now > deadline;
+    }, [job.deadline]);
 
     return (
         <div>
@@ -95,13 +101,17 @@ export default function JobDetail(props: {
                                     Lamar Posisi ini?
                                 </p>
                                 <button
-                                    disabled={props.isApplied}
+                                    disabled={
+                                        props.isApplied || hasPassedDeadline
+                                    }
                                     onClick={handleApply}
                                     className="bg-blue-500 disabled:bg-neutral-300 text-white px-4 py-2 w-full rounded-lg hover:bg-blue-600 active:bg-blue-700"
                                 >
                                     {props.isApplied
                                         ? "Sudah Dilamar"
-                                        : "Lamar Sekarang"}
+                                        : hasPassedDeadline
+                                        ? "Batas Lamar Telah Habis"
+                                        : "Lamar Posisi Ini"}
                                 </button>
                                 <p className="text-gray-500 text-sm mt-3">
                                     Batas Lamar :{" "}

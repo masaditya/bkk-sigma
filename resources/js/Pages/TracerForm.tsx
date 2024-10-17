@@ -1,5 +1,4 @@
 import InputLabel from "@/Components/InputLabel";
-import Modal from "@/Components/Modal";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, useForm, usePage } from "@inertiajs/react";

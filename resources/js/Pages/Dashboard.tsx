@@ -140,7 +140,7 @@ export default function Dashboard(props: any) {
                                         >
                                             <div className="grid gap-6 grid-cols-4 ">
                                                 <img
-                                                    src="/images/brand-light-01.svg"
+                                                    src={job.thumbnail}
                                                     alt="company-logo"
                                                     className="w-20 h-20 object-contain"
                                                 />
