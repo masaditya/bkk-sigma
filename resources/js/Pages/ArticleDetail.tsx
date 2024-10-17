@@ -164,6 +164,7 @@ export default function ArticleDetail(props: any) {
                             <div className="animate_right bf">
                                 <a
                                     href="https://partner-bkk-sigma.dexotic.io/"
+                                    target="_blank"
                                     className="vc ek kk hh rg ol il cm gi hi"
                                 >
                                     Gabung Mitra Industri
