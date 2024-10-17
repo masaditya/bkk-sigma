@@ -381,7 +381,7 @@ export default function Home(props: HomeProps) {
                             </div>
                             <div className="animate_right bf">
                                 <a
-                                    href="#"
+                                    href="https://partner-bkk-sigma.dexotic.io/"
                                     className="vc ek kk hh rg ol il cm gi hi"
                                 >
                                     Gabung Mitra Industri
@@ -433,7 +433,7 @@ export default function Home(props: HomeProps) {
                                                 href={`/article/${article.id}`}
                                                 className="vc ek rg lk gh sl ml il gi hi"
                                             >
-                                                Read More
+                                                RBaca Selengkapnya
                                             </Link>
                                         </div>
                                     </div>

@@ -324,7 +324,7 @@ export default function About(props: PageProps) {
                             </div>
                             <div className="animate_right bf">
                                 <a
-                                    href="#"
+                                    href="https://partner-bkk-sigma.dexotic.io/"
                                     className="vc ek kk hh rg ol il cm gi hi"
                                 >
                                     Gabung Mitra Industri

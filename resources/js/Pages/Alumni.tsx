@@ -182,7 +182,7 @@ export default function Alumni(props: any) {
                         <Pagination
                             current={props.alumnis.current_page}
                             onChange={handlePageChange}
-                            pageSize={10}
+                            pageSize={9}
                             total={props.alumnis.total}
                             showSizeChanger={false}
                         />
@@ -214,7 +214,7 @@ export default function Alumni(props: any) {
                             </div>
                             <div className="animate_right bf">
                                 <a
-                                    href="#"
+                                    href="https://partner-bkk-sigma.dexotic.io"
                                     className="vc ek kk hh rg ol il cm gi hi"
                                 >
                                     Gabung Mitra Industri

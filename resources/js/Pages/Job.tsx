@@ -183,7 +183,7 @@ export default function Job(props: any) {
                         <Pagination
                             onChange={handlePageChange}
                             current={props.jobs.current_page}
-                            pageSize={10}
+                            pageSize={9}
                             total={props.jobs.total}
                             showSizeChanger={false}
                         />
@@ -215,7 +215,7 @@ export default function Job(props: any) {
                             </div>
                             <div className="animate_right bf">
                                 <a
-                                    href="#"
+                                    href="https://partner-bkk-sigma.dexotic.io/"
                                     className="vc ek kk hh rg ol il cm gi hi"
                                 >
                                     Gabung Mitra Industri
