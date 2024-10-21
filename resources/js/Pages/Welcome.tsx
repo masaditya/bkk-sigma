@@ -2,7 +2,7 @@ import { Article, User } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Link } from "@inertiajs/react";
-import { Carousel } from "antd";
+import { Carousel, notification } from "antd";
 import { useWindowSize } from "usehooks-ts";
 import { useEffect, useState } from "react";
 
@@ -11,7 +11,7 @@ type HomeProps = {
         user: User;
     };
     articles: Article[];
-    companies: any[];
+    partners: any[];
 };
 
 // TypeScript types
@@ -27,6 +27,8 @@ export default function Home(props: HomeProps) {
         useState<DeferredPromptEvent | null>(null);
     const [isInstallable, setIsInstallable] = useState<boolean>(false);
 
+    console.log(props);
+
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (e: Event) => {
             e.preventDefault();
@@ -37,8 +39,15 @@ export default function Home(props: HomeProps) {
     }, []);
 
     const handleInstallClick = () => {
+        console.log(isInstallable);
+        notification.success({
+            message: "Success",
+            description: "Aplikasi Sudah Terinstal Pada Perangkat Anda!",
+            duration: 2,
+        });
         if (deferredPrompt) {
             deferredPrompt.prompt();
+            console.log(isInstallable);
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === "accepted") {
                     console.log("User accepted the install prompt");
@@ -343,7 +352,7 @@ export default function Home(props: HomeProps) {
                             slidesToScroll={1}
                             infinite
                         >
-                            {props.companies.map((item) => (
+                            {props.partners.map((item) => (
                                 <div className="rc animate_top">
                                     <img
                                         className="th wl ml il zl om"

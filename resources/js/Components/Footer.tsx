@@ -1,3 +1,8 @@
+import {
+    HomeOutlined,
+    InstagramOutlined,
+    YoutubeOutlined,
+} from "@ant-design/icons";
 import { Link } from "@inertiajs/react";
 
 export const Footer = () => {
@@ -10,7 +15,35 @@ export const Footer = () => {
                         <ul className="tc wf gg">
                             <li>
                                 <Link
-                                    href="/"
+                                    href="https://www.instagram.com/bkk.smkn1bojonegoro"
+                                    className="xl text-xs lg:text-base"
+                                >
+                                    <InstagramOutlined />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="https://youtube.com/@bkksmkn1bojonegoro169"
+                                    className="xl text-xs lg:text-base"
+                                >
+                                    <YoutubeOutlined />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    href="http://www.smkn1bojongoro.sch.id"
+                                    className="xl text-xs lg:text-base"
+                                >
+                                    <HomeOutlined />
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="animate_top">
+                        <ul className="tc wf gg">
+                            <li>
+                                <Link
+                                    href="https://partner-bkk.dexotic.io"
                                     className="xl text-xs lg:text-base"
                                 >
                                     Kemitraan Industri

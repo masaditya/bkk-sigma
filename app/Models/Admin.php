@@ -2,15 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class Admin extends Authenticatable
+class Admin extends Model
 {
-
-    use Notifiable;
-    protected $guard = 'admin';
     protected $table = 'admins';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
@@ -31,26 +29,6 @@ class Admin extends Authenticatable
         'logo'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    protected function casts(): array
-    {
-        return [
-            'password' => 'hashed',
-        ];
-    }
-
-    public function findForPassport($username)
-    {
-        return $this->where('username', $username)->first();
-    }
-
-    protected $casts = [
-        'id' => 'string',
-    ];
 
     public function companyIndustry(): BelongsTo
     {
