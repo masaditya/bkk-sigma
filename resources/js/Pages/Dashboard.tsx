@@ -93,19 +93,26 @@ export default function Dashboard(props: any) {
                                         Resume Anda.
                                     </p>
                                 </div>
-                                <input
-                                    type="file"
-                                    id="select-file"
-                                    className="hidden"
-                                    accept="application/pdf"
-                                    onChange={handleFileChange}
-                                />
-                                <label
-                                    htmlFor="select-file"
-                                    className="bg-blue-500 text-sm text-center text-white px-4 py-2 rounded-md hover:bg-blue-600 cursor-pointer"
-                                >
-                                    Unggah
-                                </label>
+                                <div className="flex gap-4">
+                                    {props.user.document && (
+                                        <a className="bg-blue-500 text-sm text-center text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                                            Lihat Resume / CV
+                                        </a>
+                                    )}
+                                    <input
+                                        type="file"
+                                        id="select-file"
+                                        className="hidden"
+                                        accept="application/pdf"
+                                        onChange={handleFileChange}
+                                    />
+                                    <label
+                                        htmlFor="select-file"
+                                        className="bg-blue-500 text-sm text-center text-white px-4 py-2 rounded-md hover:bg-blue-600 cursor-pointer"
+                                    >
+                                        Unggah
+                                    </label>
+                                </div>
                             </div>
                         }
                     </div>

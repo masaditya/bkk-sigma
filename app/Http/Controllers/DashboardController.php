@@ -39,7 +39,7 @@ class DashboardController extends Controller
     public function applicant(): Response
     {
         $user = Auth::user();
-        $applicants = Applicant::with(['occupation', 'user'])->where('id_user', $user->id)->get();
+        $applicants = Applicant::with(['occupation.company_industry', 'user'])->where('id_user', $user->id)->get();
         return Inertia::render('Applicant', ['user' => $user, 'applicants' => $applicants]);
     }
 

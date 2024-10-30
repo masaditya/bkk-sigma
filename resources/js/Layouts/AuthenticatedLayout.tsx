@@ -61,7 +61,7 @@ export default function Authenticated({
                                     <Dropdown.Trigger>
                                         <span className="inline-flex rounded-md">
                                             <img
-                                                className="h-8 w-8 rounded-full"
+                                                className="h-8 w-8 rounded-full object-cover"
                                                 src={user.photo}
                                                 alt="profile"
                                             />

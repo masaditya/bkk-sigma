@@ -2,7 +2,7 @@ import { Article, User } from "@/types";
 import Header from "@/Components/Header";
 import { Footer } from "@/Components/Footer";
 import { Link } from "@inertiajs/react";
-import { Carousel, notification } from "antd";
+import { Carousel, message, notification } from "antd";
 import { useWindowSize } from "usehooks-ts";
 import { useEffect, useState } from "react";
 
@@ -27,7 +27,7 @@ export default function Home(props: HomeProps) {
         useState<DeferredPromptEvent | null>(null);
     const [isInstallable, setIsInstallable] = useState<boolean>(false);
 
-    console.log(props);
+    const [messageApi, contextHolder] = message.useMessage();
 
     useEffect(() => {
         window.addEventListener("beforeinstallprompt", (e: Event) => {
@@ -39,27 +39,35 @@ export default function Home(props: HomeProps) {
     }, []);
 
     const handleInstallClick = () => {
-        console.log(isInstallable);
-        notification.success({
-            message: "Success",
-            description: "Aplikasi Sudah Terinstal Pada Perangkat Anda!",
-            duration: 2,
-        });
         if (deferredPrompt) {
             deferredPrompt.prompt();
-            console.log(isInstallable);
             deferredPrompt.userChoice.then((choiceResult) => {
                 if (choiceResult.outcome === "accepted") {
-                    console.log("User accepted the install prompt");
+                    messageApi.open({
+                        type: "success",
+                        content: "Aplikasi telah diinstall!",
+                    });
                 } else {
                     console.log("User dismissed the install prompt");
+                    messageApi.open({
+                        type: "info",
+                        content: "Aplikasi belum diinstall!",
+                    });
                 }
                 setDeferredPrompt(null);
             });
+        } else if (!isInstallable) {
+            notification.error({
+                message: "Tidak ada prompt installasi",
+                description:
+                    "Silahkan install aplikasi ini menggunakan Browser Safari atau Chrome",
+            });
         }
+        messageApi.destroy();
     };
     return (
         <div>
+            {contextHolder}
             <Header user={props.auth.user} page="home" />
             <main>
                 <section className="gj do ir hj sp jr i pg">
@@ -110,12 +118,14 @@ export default function Home(props: HomeProps) {
                                     >
                                         Cari Lowongan
                                     </Link>
-                                    <button
-                                        className="font-semibold hover:text-blue-400 text-left lg:text-center ml-4 lg:ml-0"
-                                        onClick={handleInstallClick}
-                                    >
-                                        Install Aplikasi
-                                    </button>
+                                    {isInstallable && (
+                                        <button
+                                            className="font-semibold hover:text-blue-400 text-left lg:text-center ml-4 lg:ml-0"
+                                            onClick={handleInstallClick}
+                                        >
+                                            Install Aplikasi
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
